@@ -18,12 +18,6 @@
    <email>hholzgra@php.net</email>
    <role>lead</role>
   </maintainer>
-  <maintainer>
-   <user>???</user>
-   <name>Adam Ashley</name>
-   <email>aashley@optimiser.com</email>
-   <role>contributor</role>
-  </maintainer>
  </maintainers>
 
  <release>
