@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "../../package.dtd">
+<package>
+	<name>uuid</name>
+	<summary>UUID support functions</summary>
+	<description>
+   This extension provides functions to generate and analyse
+   universally unique identifiers (UUIDs). It depends on the
+   external libuuid. This library is available on most linux 
+   systems, its source is bundled with the ext2fs tools.
+  </description>
+	<license>PHP License</license>
+	<maintainers>
+		<maintainer>
+			<user>hholzgra</user>
+			<name>Hartmut Holzgraefe</name>
+			<email>hholzgra@php.net</email>
+		</maintainer>
+	</maintainers>
+	<release>
+		<version>0.9</version>
+		<date>2003-02-10</date>
+		<state>beta</state>
+		<notes>
+     Initial 'official' beta release.
+    </notes>
+	</release>
+	<filelist>
+		<dir role="src" name="/">
+			<file role="doc">LICENSE</file>
+			<file role="doc">EXPERIMENTAL</file>
+			<file role="doc">README</file>
+			<file role="doc">uuid.xml</file>
+			<file role="src">config.m4</file>
+			<file role="src">uuid.c</file>
+			<file role="src">php_uuid.h</file>
+		</dir>
+	</filelist> 
+	<changelog>
+	</changelog>  
+</package>
