@@ -30,12 +30,13 @@
 extern zend_module_entry uuid_module_entry;
 #define phpext_uuid_ptr &uuid_module_entry
 
- PHP_MINIT_FUNCTION(uuid);
+PHP_MINIT_FUNCTION(uuid);
 PHP_MINFO_FUNCTION(uuid);
 
 PHP_FUNCTION(uuid_create);
 PHP_FUNCTION(uuid_compare);
 PHP_FUNCTION(uuid_is_null);
+PHP_FUNCTION(uuid_is_valid);
 PHP_FUNCTION(uuid_variant);
 PHP_FUNCTION(uuid_type);
 PHP_FUNCTION(uuid_time);

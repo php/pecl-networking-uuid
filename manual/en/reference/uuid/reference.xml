@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<!-- $Revision: 1.1 $ -->
+ <reference id='ref.uuid'>
+  <title>UUID extension</title>
+  <titleabbrev>uuid</titleabbrev>
+
+  <partintro>
+   <section id='uuid.intro'>
+    &reftitle.intro;
+    <para>
+     The UUID extension provides functions to teal with Universally Unique IDentifiers
+     as defined by the Open Software Foundation (OSF) for the Distributed Computing  
+     Environment (DCE).
+    </para>
+    <para>
+     An UUID is 16 bytes (128 bits) long, which gives approximately 3.4x10^38 unique  values
+     (there  are  approximately  10^80  elemntary particles in the universe according to Carl
+     Sagan's Cosmos).  The new UUID can reasonably be considered unique among all UUIDs  
+     created on the local system, and among UUIDs created on other systems in the past and in
+     the future.
+    </para>
+    <para>
+     UUIDs may be created using the systems MAC address, a timestamp with nano second resolution
+     and a sequence counter or by using 128 bit random values. The former are guaranteed to be
+     unique but may lead to privacy problems while the later are not 100% guaranteed to be unique
+     but can reasonably considered to be so (unless a poor random generator is used).
+    </para>
+    <para>
+     The library used by this extension generates random UUIDs if a high-quality source for 
+     random numbers (like /dev/urandom) is available, else it falls back to unsing the systems
+     current time and MAC address by default. It is possible to override the default behaviour
+     by specifying which type of UUID to generate.
+    </para>
+   </section>
+   
+   &reference.uuid.configure;
+
+   <section id='uuid.constants'>
+    &reftitle.constants;
+    &extension.constants;
+    <variablelist>
+     <varlistentry>
+      <term>
+       <constant>UUID_VARIANT_NCS</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_VARIANT_DCE</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_VARIANT_MICROSOFT</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_VARIANT_OTHER</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_TYPE_TIME</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_TYPE_DCE</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_TYPE_NAME</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_TYPE_RANDOM</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <constant>UUID_TYPE_NULL</constant> 
+       (<type>integer</type>)
+      </term>
+      <listitem>
+       <simpara>
+
+       </simpara>
+      </listitem>
+     </varlistentry>
+   </section>
+   
+  </partintro>
+
+&reference.uuid.functions;
+
+ </reference>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

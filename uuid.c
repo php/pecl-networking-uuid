@@ -29,17 +29,19 @@
 
 #include <uuid/uuid.h>
 
+#define UUID_TYPE_DEFAULT 0
 #define UUID_TYPE_TIME    1
 #define UUID_TYPE_DCE     2
 #define UUID_TYPE_NAME    3
 #define UUID_TYPE_RANDOM  4
-
+#define UUID_TYPE_NULL   -1
 
 /* {{{ uuid_functions[] */
 function_entry uuid_functions[] = {
 	PHP_FE(uuid_create,	NULL)
 	PHP_FE(uuid_compare,	NULL)
 	PHP_FE(uuid_is_null,	NULL)
+	PHP_FE(uuid_is_valid,	NULL)
 	PHP_FE(uuid_variant,	NULL)
 	PHP_FE(uuid_type,	NULL)
 	PHP_FE(uuid_time,	NULL)
@@ -77,10 +79,11 @@ PHP_MINIT_FUNCTION(uuid)
 	REGISTER_LONG_CONSTANT("UUID_VARIANT_MICROSOFT", UUID_VARIANT_MICROSOFT, CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_VARIANT_OTHER",     UUID_VARIANT_OTHER,     CONST_CS | CONST_PERSISTENT);
 
-	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME",      UUID_TYPE_NAME,   CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME",      UUID_TYPE_TIME,   CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_DCE",       UUID_TYPE_DCE,    CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_NAME",      UUID_TYPE_NAME,   CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_RANDOM",    UUID_TYPE_RANDOM, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("UUID_TYPE_NULL",      UUID_TYPE_NULL,   CONST_CS | CONST_PERSISTENT);
 
 	return SUCCESS;
 }
@@ -97,29 +100,44 @@ PHP_MINFO_FUNCTION(uuid)
 /* }}} */
 
 
-/* {{{ proto string uuid_create([int flags])
+/* {{{ proto string uuid_create([int type])
    Create a UUID */
 PHP_FUNCTION(uuid_create)
 {
 	int argc = ZEND_NUM_ARGS();
-	long flags;
+	long type = UUID_TYPE_DEFAULT;
 	uuid_t uuid;
 	char uuid_str[37];
 
-	if (zend_parse_parameters(argc TSRMLS_CC, "|l", &flags) == FAILURE) 
+	if (zend_parse_parameters(argc TSRMLS_CC, "|l", &type) == FAILURE) 
 		return;
 
-	if (flags == UUID_TYPE_TIME || flags == UUID_TYPE_NAME) {		
+	switch (type) {
+	case UUID_TYPE_TIME:
+	case UUID_TYPE_NAME:		
 		/* Generate Time/System Name based UUID */
 		uuid_generate_time(uuid);
-	} else if (flags == UUID_TYPE_DCE || flags == UUID_TYPE_RANDOM) {
+		break;
+	case UUID_TYPE_DCE:
+	case UUID_TYPE_RANDOM:
 		/* Generate Random based UUID, much better */
 		uuid_generate_random(uuid);
-	} else {
+		break;
+	case UUID_TYPE_NULL:
+        /* null UUID */
+		uuid_clear(uuid);
+		break;
+    default:		
+		php_error_docref(NULL TSRMLS_CC, E_WARNING, 
+						 "Unknown/invalid UUID type '%d' requested, using default type instead", 
+						 type);
+		/* fallthru */
+	case UUID_TYPE_DEFAULT:
 		/* Fall back and use the system default. In most cases this
 		   is the Random Based one. */
 		uuid_generate(uuid);
-	}
+	} 
+
 	uuid_unparse(uuid, uuid_str);
 
 	RETURN_STRING(uuid_str, 1);
@@ -165,6 +183,24 @@ PHP_FUNCTION(uuid_is_null)
 }
 /* }}} */
 
+/* {{{ proto bool uuid_is_valid(string uuid)
+   Validate UUID */
+PHP_FUNCTION(uuid_is_valid)
+{
+	int argc = ZEND_NUM_ARGS();
+	char *uuid = NULL;
+	int uuid_len;
+	uuid_t u;
+
+	if (zend_parse_parameters(argc TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) 
+		return;
+	
+	if(uuid_parse(uuid, u)) RETURN_FALSE;
+	
+    RETURN_TRUE;
+}
+/* }}} */
+
 /* {{{ proto int uuid_variant(string uuid)
    Get UUID variant */
 PHP_FUNCTION(uuid_variant)
@@ -196,6 +232,8 @@ PHP_FUNCTION(uuid_type)
 		return;
 
 	if(uuid_parse(uuid, u)) RETURN_FALSE;
+
+	if (uuid_is_null(u)) RETURN_LONG(UUID_TYPE_NULL);
 
 	RETURN_LONG(uuid_type(u));
 }
