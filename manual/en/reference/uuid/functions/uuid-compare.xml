@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- $Revision: 1.1 $ -->
+<!-- $Revision: 1.2 $ -->
   <refentry id="function.uuid-compare">
    <refnamediv>
     <refname>uuid_compare</refname>
@@ -13,7 +13,7 @@
       <methodparam ><type>string</type><parameter>uuid2</parameter></methodparam>
      </methodsynopsis>
      <para>
-      <function>uuid_compare> returns an integer less than, equal to, or greater 
+      <function>uuid_compare</function> returns an integer less than, equal to, or greater 
        than zero if <parameter>uuid1</parameter> is found, respectively, to be 
        lexigraphically less than, equal, or greater than <parameter>uuid2</parameter>.
      </para>

@@ -9,7 +9,7 @@
    </section>
 
 
-   <section id='html-parse.install'>
+   <section id='uuid-parse.install'>
     &reftitle.install;
     <para>
      In order to build this extension yourself you need the libuuid library 
@@ -27,7 +27,7 @@
    </section>
 
 
-   <section id='html-parse.configuration'>
+   <section id='uuid-parse.configuration'>
     &reftitle.runtime;
     &no.config;
 
