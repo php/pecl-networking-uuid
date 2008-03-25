@@ -13,6 +13,8 @@ PHP_ARG_WITH(uuid, for uuid support,
 if test "$PHP_UUID" != "no"; then
   AC_DEFINE(HAVE_UUID, 1, [ ])
   PHP_ADD_LIBRARY(uuid, 1, UUID_SHARED_LIBADD)  
+  PHP_CHECK_FUNC_LIB(uuid_type, uuid)
+  PHP_CHECK_FUNC_LIB(uuid_variant, uuid)
   PHP_NEW_EXTENSION(uuid, uuid.c, $ext_shared)
   PHP_SUBST(UUID_SHARED_LIBADD)
 fi

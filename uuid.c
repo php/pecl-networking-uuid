@@ -61,7 +61,7 @@ zend_module_entry uuid_module_entry = {
 	NULL,
 	NULL,
 	PHP_MINFO(uuid),
-	"0.1", 
+	"1.0.1", 
 	STANDARD_MODULE_PROPERTIES
 };
 /* }}} */
@@ -74,16 +74,24 @@ ZEND_GET_MODULE(uuid)
  */
 PHP_MINIT_FUNCTION(uuid)
 {
-	REGISTER_LONG_CONSTANT("UUID_VARIANT_NCS",       UUID_VARIANT_NCS,       CONST_CS | CONST_PERSISTENT);
-	REGISTER_LONG_CONSTANT("UUID_VARIANT_DCE",       UUID_VARIANT_DCE,       CONST_CS | CONST_PERSISTENT);
-	REGISTER_LONG_CONSTANT("UUID_VARIANT_MICROSOFT", UUID_VARIANT_MICROSOFT, CONST_CS | CONST_PERSISTENT);
-	REGISTER_LONG_CONSTANT("UUID_VARIANT_OTHER",     UUID_VARIANT_OTHER,     CONST_CS | CONST_PERSISTENT);
-
 	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME",      UUID_TYPE_TIME,   CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_DCE",       UUID_TYPE_DCE,    CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_NAME",      UUID_TYPE_NAME,   CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_RANDOM",    UUID_TYPE_RANDOM, CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_NULL",      UUID_TYPE_NULL,   CONST_CS | CONST_PERSISTENT);
+
+#ifdef UUID_VARIANT_NCS
+	REGISTER_LONG_CONSTANT("UUID_VARIANT_NCS",       UUID_VARIANT_NCS,       CONST_CS | CONST_PERSISTENT);
+#endif
+#ifdef UUID_VARIANT_DCE
+	REGISTER_LONG_CONSTANT("UUID_VARIANT_DCE",       UUID_VARIANT_DCE,       CONST_CS | CONST_PERSISTENT);
+#endif
+#ifdef UUID_VARIANT_MICROSOFT
+	REGISTER_LONG_CONSTANT("UUID_VARIANT_MICROSOFT", UUID_VARIANT_MICROSOFT, CONST_CS | CONST_PERSISTENT);
+#endif
+#ifdef UUID_VARIANT_OTHER
+	REGISTER_LONG_CONSTANT("UUID_VARIANT_OTHER",     UUID_VARIANT_OTHER,     CONST_CS | CONST_PERSISTENT);
+#endif
 
 	return SUCCESS;
 }
@@ -201,6 +209,7 @@ PHP_FUNCTION(uuid_is_valid)
 }
 /* }}} */
 
+#if HAVE_UUID_VARIANT
 /* {{{ proto int uuid_variant(string uuid)
    Get UUID variant */
 PHP_FUNCTION(uuid_variant)
@@ -218,7 +227,9 @@ PHP_FUNCTION(uuid_variant)
 	RETURN_LONG(uuid_variant(u));
 }
 /* }}} */
+#endif
 
+#if HAVE_UUID_TYPE
 /* {{{ proto int uuid_type(string uuid)
    Get UUID type */
 PHP_FUNCTION(uuid_type)
@@ -238,6 +249,7 @@ PHP_FUNCTION(uuid_type)
 	RETURN_LONG(uuid_type(u));
 }
 /* }}} */
+#endif
 
 /* {{{ proto int uuid_time(string uuid)
    Get UUID creation time as UNIX timestamp */
@@ -252,9 +264,12 @@ PHP_FUNCTION(uuid_time)
 		return;
 
 	if(uuid_parse(uuid, u)) RETURN_FALSE;
+#if HAVE_UUID_VARIANT
 	if(uuid_variant(u) != 1) RETURN_FALSE;
+#endif
+#if HAVE_UUID_TYPE
 	if(uuid_type(u) != 1) RETURN_FALSE;
-
+#endif
 	RETURN_LONG(uuid_time(u, NULL));
 }
 /* }}} */
@@ -273,8 +288,12 @@ PHP_FUNCTION(uuid_mac)
 		return;
 
 	if(uuid_parse(uuid, u)) RETURN_FALSE;
+#if HAVE_UUID_VARIANT
 	if(uuid_variant(u) != 1) RETURN_FALSE;
+#endif
+#if HAVE_UUID_TYPE
 	if(uuid_type(u) != 1) RETURN_FALSE;
+#endif
 	if(uuid[10]&0x80) RETURN_FALSE;
 
 	uuid_unparse(u, uuid_str);

@@ -1,58 +1,95 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "../../package.dtd">
-<package>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
  <name>uuid</name>
+ <channel>pecl.php.net</channel>
  <summary>UUID support functions</summary>
- <description>
-  This extension provides functions to generate and analyse
-  universally unique identifiers (UUIDs). It depends on the
-  external libuuid. This library is available on most linux 
-  systems, its source is bundled with the ext2fs tools.
+ <description>This extension provides functions to generate and analyse
+universally unique identifiers (UUIDs). It depends on the
+external libuuid. This library is available on most linux 
+systems (its source is there bundled with the ext2fs tools)
+and on Solaris.
  </description>
- <license>PHP License</license>
-
- <maintainers>
-  <maintainer>
-   <user>hholzgra</user>
-   <name>Hartmut Holzgraefe</name>
-   <email>hholzgra@php.net</email>
-   <role>lead</role>
-  </maintainer>
- </maintainers>
-
- <release>
-  <version>1.0</version>
-  <date>2004-03-27</date>
-  <state>stable</state>
-  <notes>
-   Official 1.0 stable release
-  </notes>
- </release>
-
- <filelist>
-  <file role="doc" name="CREDITS"/>
-  <file role="doc" name="uuid.xml"/>
-  <file role="src" name="config.m4"/>
-  <file role="src" name="uuid.c"/>
-  <file role="src" name="php_uuid.h"/>
-  <file role="test" name="tests/uuid_mac.phpt"/>
-  <file role="test" name="tests/uuid_time.phpt"/>
-  <file role="test" name="tests/uuid_type.phpt"/>
-  <file role="test" name="tests/uuid_variant.phpt"/>
-  <file role="test" name="tests/uuid_is_null.phpt"/>
-  <file role="test" name="tests/uuid_create.phpt"/>
-  <file role="test" name="tests/uuid_compare.phpt"/>
-  <file role="test" name="tests/uuid_is_valid.phpt"/>
- </filelist> 
-
+ <lead>
+  <name>Hartmut Holzgraefe</name>
+  <user>hholzgra</user>
+  <email>hholzgra@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-03-25</date>
+ <time>23:51:21</time>
+ <version>
+  <release>1.0.1</release>
+  <api>1.0.1</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>Now works with Solaris libuuid implementation, too
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="tests">
+    <file name="uuid_compare.phpt" role="test" />
+    <file name="uuid_create.phpt" role="test" />
+    <file name="uuid_is_null.phpt" role="test" />
+    <file name="uuid_is_valid.phpt" role="test" />
+    <file name="uuid_mac.phpt" role="test" />
+    <file name="uuid_time.phpt" role="test" />
+    <file name="uuid_type.phpt" role="test" />
+    <file name="uuid_variant.phpt" role="test" />
+   </dir> <!-- //tests -->
+   <file name="config.m4" role="src" />
+   <file name="CREDITS" role="doc" />
+   <file name="php_uuid.h" role="src" />
+   <file name="uuid.c" role="src" />
+   <file name="uuid.xml" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <providesextension>uuid</providesextension>
+ <extsrcrelease />
  <changelog>
   <release>
-   <version>0.9</version>
+   <version>
+    <release>0.9</release>
+    <api>0.9</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
    <date>2003-02-10</date>
-   <state>beta</state>
-   <notes>
-    Initial 'official' beta release.
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Initial &apos;official&apos; beta release.
    </notes>
   </release>
- </changelog>  
+  <release>
+   <version>
+    <release>1.0</release>
+    <api>1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-03-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Official 1.0 stable release
+   </notes>
+  </release>
+ </changelog>
 </package>
