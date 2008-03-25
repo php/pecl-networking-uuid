@@ -21,6 +21,8 @@
 #ifndef PHP_UUID_H
 #define PHP_UUID_H
 
+#define PHP_UUID_VERSION "1.0.1"
+
 #ifdef PHP_WIN32
 #define PHP_UUID_API __declspec(dllexport)
 #else
