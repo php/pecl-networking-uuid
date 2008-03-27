@@ -1,0 +1,10 @@
+ &reference.uuid.functions.uuid-compare;
+ &reference.uuid.functions.uuid-create;
+ &reference.uuid.functions.uuid-is-null;
+ &reference.uuid.functions.uuid-is-valid;
+ &reference.uuid.functions.uuid-mac;
+ &reference.uuid.functions.uuid-parse;
+ &reference.uuid.functions.uuid-time;
+ &reference.uuid.functions.uuid-type;
+ &reference.uuid.functions.uuid-unparse;
+ &reference.uuid.functions.uuid-variant;

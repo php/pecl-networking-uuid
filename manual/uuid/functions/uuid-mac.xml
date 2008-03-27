@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision: 1.1 $ -->
-  <refentry id="function.uuid-is-null">
+  <refentry id="function.uuid-mac">
    <refnamediv>
-    <refname>uuid_is_null</refname>
-    <refpurpose>Check for the NULL UUID</refpurpose>
+    <refname>uuid_mac</refname>
+    <refpurpose>Get UUID creator network MAC address</refpurpose>
    </refnamediv>
    <refsect1>
     <title>Description</title>
      <methodsynopsis>
-      <type>bool</type><methodname>uuid_is_null</methodname>
-      <methodparam ><type>string</type><parameter>uuid</parameter></methodparam>
+      <type>string</type><methodname>uuid_mac</methodname>
+      <methodparam><type>string</type><parameter>uuid</parameter></methodparam>
      </methodsynopsis>
      <para>
-       <function>uuid_is_null</function> compares the value of 
-        <parameter>uuid</parameter> to the NULL UUID 
-        "00000000-0000-0000-0000-000000000000".  
-        It returns &true; if <parameter>uuid</parameter> is equal 
-        to the NULL UUID and &false; otherwise.
+   ...
      </para>
 
    </refsect1>

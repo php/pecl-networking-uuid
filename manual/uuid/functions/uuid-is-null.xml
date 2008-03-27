@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision: 1.1 $ -->
-  <refentry id="function.uuid-time">
+  <refentry id="function.uuid-is-null">
    <refnamediv>
-    <refname>uuid_time</refname>
-    <refpurpose>Detect UUID creation time</refpurpose>
+    <refname>uuid_is_null</refname>
+    <refpurpose>Check wheter an UUID is the NULL UUID 00000000-0000-0000-0000-000000000000</refpurpose>
    </refnamediv>
    <refsect1>
     <title>Description</title>
      <methodsynopsis>
-      <type>int</type><methodname>uuid_time</methodname>
-      <methodparam ><type>string</type><parameter>uuid</parameter></methodparam>
+      <type>bool</type><methodname>uuid_is_null</methodname>
+      <methodparam><type>string</type><parameter>uuid</parameter></methodparam>
      </methodsynopsis>
      <para>
-      <function>uuid_time</function> returns the time 
-      <parameter>uuid</parameter> was created at as a UNIX
-      timestamp if this information was included on generation. 
-      If <parameter>uuid</parameter> doesn't contain a valid
-      creation timestamp &false; is returned instead.
+   ...
      </para>
 
    </refsect1>

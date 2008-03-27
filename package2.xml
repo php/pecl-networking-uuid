@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+    xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+
+  <name>uuid</name>
+  <channel>pecl.php.net</channel>
+
+  <summary>UUID extension</summary>
+
+  <description>
+  A wrapper around libuuid from the ext2utils project.
+  </description>
+
+  <lead>
+    <name>Hartmut Holzgraefe</name>
+    <user>hholzgra</user>
+    <email>hartmut@php.net</email>
+    <active>yes</active>
+  </lead>
+
+  <date>2006-06-24</date>
+  <version>
+    <release>0.1</release>
+    <api>0.1</api>
+  </version>
+  <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+  </stability>
+
+  <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
+
+  <notes>
+   first tests
+
+  </notes>
+
+  <contents>
+    <dir name="/">
+      <file role='doc' name='EXPERIMENTAL'/>
+      <file role='doc' name='CREDITS'/>
+      <file role='src' name='config.m4'/>
+      <file role='src' name='uuid.c'/>
+      <file role='src' name='php_uuid.h'/>
+      <dir name="tests">
+        <file role='test' name='uuid_create.phpt'/>
+        <file role='test' name='uuid_is_valid.phpt'/>
+        <file role='test' name='uuid_compare.phpt'/>
+        <file role='test' name='uuid_is_null.phpt'/>
+        <file role='test' name='uuid_type.phpt'/>
+        <file role='test' name='uuid_variant.phpt'/>
+        <file role='test' name='uuid_time.phpt'/>
+        <file role='test' name='uuid_mac.phpt'/>
+        <file role='test' name='uuid_parse.phpt'/>
+        <file role='test' name='uuid_unparse.phpt'/>
+      </dir>
+    </dir>
+  </contents>
+
+  <dependencies>
+    <required>
+      <php>
+        <min>4.0.0</min>
+      </php>
+      <pearinstaller>
+        <min>1.4.0a1</min>
+      </pearinstaller>
+    <os><name>unix</name></os>
+    </required>
+  </dependencies>
+
+  <providesextension>uuid</providesextension>
+
+  <extsrcrelease>
+   <configureoption name="with-uuid" default="autodetect" prompt="uuid installation directory?" />
+  </extsrcrelease>
+
+</package>

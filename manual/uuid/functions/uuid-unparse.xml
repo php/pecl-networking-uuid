@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision: 1.1 $ -->
-  <refentry id="function.uuid-create">
+  <refentry id="function.uuid-unparse">
    <refnamediv>
-    <refname>uuid_create</refname>
-    <refpurpose>Create a new UUID</refpurpose>
+    <refname>uuid_unparse</refname>
+    <refpurpose></refpurpose>
    </refnamediv>
    <refsect1>
     <title>Description</title>
      <methodsynopsis>
-      <type>string</type><methodname>uuid_create</methodname>
-      <methodparam choice="opt"><type>int</type><parameter>type</parameter></methodparam>
+      <type>string</type><methodname>uuid_unparse</methodname>
+      <methodparam><type>string</type><parameter>uuid</parameter></methodparam>
      </methodsynopsis>
      <para>
-      If no <parameter>type</parameter> is specified the 
-      systems default is used. Possible <parameter>type</parameter>s are 
-      <constant>UUID_TYPE_TIME</constant> for UUIDs based on the systems current 
-      time and MAC address, <constant>UUID_TYPE_RANDOM</constant> for all-random
-      UUIDs and <constant>UUID_TYPE_NULL</constant> for the NULL UUID 
-      "00000000-0000-0000-0000-000000000000".
      </para>
+
    </refsect1>
   </refentry>
 

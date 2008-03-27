@@ -1,23 +1,21 @@
 --TEST--
-UUID validation
+uuid_is_valid() function
 --SKIPIF--
-<?php if (!extension_loaded("uuid")) print "skip"; ?>
---POST--
---GET--
---INI--
+<?php 
+
+if(!extension_loaded('uuid')) die('skip ');
+
+ ?>
 --FILE--
 <?php
-echo (int)uuid_is_valid("this is not an UUID string")."\n";
-echo (int)uuid_is_valid("b691c99c-7fc5-11d8-9fa8-00065b896488")."\n";
-echo (int)uuid_is_valid("878b258c-a9f1-467c-8e1d-47d79ca2c01b")."\n";
-echo (int)uuid_is_valid("00000000-0000-0000-0000-000000000000")."\n";
-echo (int)uuid_is_valid("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")."\n";
+var_dump(uuid_is_valid("1b4e28ba-2fa1-11d2-883f-b9a761bde3fb"));
+var_dump(uuid_is_valid("ffffffff-ffff-ffff-ffff-ffffffffffff"));
+var_dump(uuid_is_valid("61616161-6161-6161-6161-616161616161"));
+var_dump(uuid_is_valid("foobar"));
+
 ?>
 --EXPECT--
-0
-1
-1
-1
-1
-
-
+bool(true)
+bool(true)
+bool(true)
+bool(false)

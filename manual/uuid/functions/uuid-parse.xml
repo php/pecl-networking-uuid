@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision: 1.1 $ -->
-  <refentry id="function.uuid-is-valid">
+  <refentry id="function.uuid-parse">
    <refnamediv>
-    <refname>uuid_is_valid</refname>
-    <refpurpose>Validate an UUID</refpurpose>
+    <refname>uuid_parse</refname>
+    <refpurpose></refpurpose>
    </refnamediv>
    <refsect1>
     <title>Description</title>
      <methodsynopsis>
-      <type>string</type><methodname>uuid_is_valid</methodname>
-      <methodparam ><type>string</type><parameter>uuid</parameter></methodparam>
+      <type>string</type><methodname>uuid_parse</methodname>
+      <methodparam><type>string</type><parameter>uuid</parameter></methodparam>
      </methodsynopsis>
      <para>
-      <function>uuid_is_valid</function> checks whether 
-      <parameter>uuid</parameter> is a valid UUID. It returns &true;
-      if <parameter>uuid</parameter> was found to be valid, &false; 
-      otherwise.
      </para>
 
    </refsect1>

@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision: 1.1 $ -->
-  <refentry id="function.uuid-mac">
+  <refentry id="function.uuid-is-valid">
    <refnamediv>
-    <refname>uuid_mac</refname>
-    <refpurpose>Detect MAC address of UUID creator</refpurpose>
+    <refname>uuid_is_valid</refname>
+    <refpurpose>Check whether a given UUID string is a valid UUID</refpurpose>
    </refnamediv>
    <refsect1>
     <title>Description</title>
      <methodsynopsis>
-      <type>string</type><methodname>uuid_mac</methodname>
-      <methodparam ><type>string</type><parameter>uuid</parameter></methodparam>
+      <type>bool</type><methodname>uuid_is_valid</methodname>
+      <methodparam><type>string</type><parameter>uuid</parameter></methodparam>
      </methodsynopsis>
      <para>
-      <function>uuid_mac</function> returns the MAC address of the system
-      that generated <parameter>uuid</parameter> if it was included on
-      generation. If <parameter>uuid</parameter> doesn't contain a valid
-      MAC address &false; is returned instead.
+   add some text here
      </para>
 
    </refsect1>

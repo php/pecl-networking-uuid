@@ -3,20 +3,16 @@
   <refentry id="function.uuid-type">
    <refnamediv>
     <refname>uuid_type</refname>
-    <refpurpose>Detect UUID type</refpurpose>
+    <refpurpose>Return the UUIDs type</refpurpose>
    </refnamediv>
    <refsect1>
     <title>Description</title>
      <methodsynopsis>
       <type>int</type><methodname>uuid_type</methodname>
-      <methodparam ><type>string</type><parameter>uuid</parameter></methodparam>
+      <methodparam><type>string</type><parameter>uuid</parameter></methodparam>
      </methodsynopsis>
      <para>
-      <function>uuid_type</function> returns the type of
-      <parameter>uuid</parameter>. Possible types are 
-      <constant>UUID_TYPE_TIME</constant>, <constant>UUID_TYPE_DCE</constant>,
-      <constant>UUID_TYPE_NAME</constant>, <constant>UUID_TYPE_RANDOM</constant>
-      and <constant>UUID_TYPE_NULL</constant>.
+   ...
      </para>
 
    </refsect1>

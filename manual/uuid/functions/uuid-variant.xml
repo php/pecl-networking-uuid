@@ -3,20 +3,16 @@
   <refentry id="function.uuid-variant">
    <refnamediv>
     <refname>uuid_variant</refname>
-    <refpurpose>Detect UUID variant</refpurpose>
+    <refpurpose>Return the UUIDs variant</refpurpose>
    </refnamediv>
    <refsect1>
     <title>Description</title>
      <methodsynopsis>
       <type>int</type><methodname>uuid_variant</methodname>
-      <methodparam ><type>string</type><parameter>uuid</parameter></methodparam>
+      <methodparam><type>string</type><parameter>uuid</parameter></methodparam>
      </methodsynopsis>
      <para>
-      <function>uuid_variant</function> returns the variant of
-      <parameter>uuid</parameter>. Possible variants are 
-      <constant>UUID_VARIANT_NCS</constant>, <constant>UUID_VARIANT_DCE</constant>,
-      <constant>UUID_VARIANT_MICROSOFT</constant>, 
-      and <constant>UUID_VARIANT_OTHER</constant>.
+   ...
      </para>
 
    </refsect1>
