@@ -20,11 +20,13 @@
  </maintainers>
 
  <release>
-  <version>0.1</version>
-  <date>2006-06-24</date>
-  <state>alpha</state>
+  <version>1.0.2</version>
+  <date>2008-04-01</date>
+  <state>stable</state>
   <notes>
-   first tests
+- should now work on Solaris, too (although missing two functions)
+- added uuid_parse() and uuid_unparse()
+- now generated using PEAR::CodeGen_PECL
   </notes>
  </release>
 
