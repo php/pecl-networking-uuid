@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='iso-8859-1'?>
-<!-- $Revision: 1.1 $ -->
+<!-- $Revision: 1.2 $ -->
 <!-- Purpose: utilspec -->
 <!-- Membership: pecl, external -->
-<!-- State: experimental -->
 
  <reference xml:id='ref.uuid' xmlns='http://docbook.org/ns/docbook' xmlns:xlink='http://www.w3.org/1999/xlink'>
   <title>UUID extension</title>

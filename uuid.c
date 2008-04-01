@@ -134,12 +134,13 @@ PHP_RSHUTDOWN_FUNCTION(uuid)
 /* {{{ PHP_MINFO_FUNCTION */
 PHP_MINFO_FUNCTION(uuid)
 {
-	php_info_print_box_start(0);
-	php_printf("<p>UUID extension</p>\n");
-	php_printf("<p>Version %s alpha (2006-06-24) $Id$</p>\n", PHP_UUID_VERSION);
-	php_printf("<p><b>Authors:</b></p>\n");
-	php_printf("<p>Hartmut Holzgraefe &lt;hartmut@php.net&gt; (lead)</p>\n");
-	php_info_print_box_end();
+	php_printf("UUID extension\n");
+	php_info_print_table_start();
+	php_info_print_table_row(2, "Version",PHP_UUID_VERSION " (stable)");
+	php_info_print_table_row(2, "Released", "2008-04-01");
+	php_info_print_table_row(2, "CVS Revision", "$Id$");
+	php_info_print_table_row(2, "Authors", "Hartmut Holzgraefe 'hartmut@php.net' (lead)\n");
+	php_info_print_table_end();
 	/* add your stuff here */
 
 }
