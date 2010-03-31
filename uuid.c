@@ -29,7 +29,7 @@
 #if HAVE_UUID
 
 /* {{{ uuid_functions[] */
-function_entry uuid_functions[] = {
+zend_function_entry uuid_functions[] = {
 	PHP_FE(uuid_create         , uuid_create_arg_info)
 	PHP_FE(uuid_is_valid       , uuid_is_valid_arg_info)
 	PHP_FE(uuid_compare        , uuid_compare_arg_info)
