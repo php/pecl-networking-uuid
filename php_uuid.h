@@ -38,7 +38,7 @@ extern "C" {
 #include <php.h>
 
 #ifdef HAVE_UUID
-#define PHP_UUID_VERSION "1.0.2"
+#define PHP_UUID_VERSION "1.0.3"
 
 
 #include <php_ini.h>
