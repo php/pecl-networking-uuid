@@ -39,6 +39,7 @@ extern "C" {
 
 #ifdef HAVE_UUID
 #define PHP_UUID_VERSION "1.0.3"
+#define PHP_UUID_RELEASED "2008-04-01"
 
 
 #include <php_ini.h>
