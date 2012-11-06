@@ -152,7 +152,7 @@ PHP_MINFO_FUNCTION(uuid)
 PHP_FUNCTION(uuid_create)
 {
 
-	long uuid_type = 0;
+	long uuid_type = UUID_TYPE_DEFAULT;
 
 
 
