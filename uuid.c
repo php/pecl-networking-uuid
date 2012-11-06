@@ -177,7 +177,7 @@ PHP_FUNCTION(uuid_create)
 		  default:
 			php_error_docref(NULL TSRMLS_CC, 
 							 E_WARNING,
-							 "Unknown/invalid UUID type '%d' requested, using default type instead",
+							 "Unknown/invalid UUID type '%ld' requested, using default type instead",
 							 uuid_type);
 			uuid_generate(uuid);
 			break;        
