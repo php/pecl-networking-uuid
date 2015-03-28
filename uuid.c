@@ -152,7 +152,7 @@ PHP_MINFO_FUNCTION(uuid)
 PHP_FUNCTION(uuid_create)
 {
 
-	long uuid_type = UUID_TYPE_DEFAULT;
+	zend_long uuid_type = UUID_TYPE_DEFAULT;
 
 
 
@@ -185,7 +185,7 @@ PHP_FUNCTION(uuid_create)
 
 		uuid_unparse(uuid, uuid_str);
 
-		RETURN_STRING(uuid_str, 1);
+		UUID_RETSTR(uuid_str);
 	} while (0);
 }
 /* }}} uuid_create */
@@ -197,7 +197,7 @@ PHP_FUNCTION(uuid_is_valid)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -219,9 +219,9 @@ PHP_FUNCTION(uuid_compare)
 {
 
 	const char * uuid1 = NULL;
-	int uuid1_len = 0;
+	strsize uuid1_len = 0;
 	const char * uuid2 = NULL;
-	int uuid2_len = 0;
+	strsize uuid2_len = 0;
 
 
 
@@ -247,7 +247,7 @@ PHP_FUNCTION(uuid_is_null)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -273,7 +273,7 @@ PHP_FUNCTION(uuid_type)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -302,7 +302,7 @@ PHP_FUNCTION(uuid_variant)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -330,7 +330,7 @@ PHP_FUNCTION(uuid_time)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -361,7 +361,7 @@ PHP_FUNCTION(uuid_mac)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -384,7 +384,7 @@ PHP_FUNCTION(uuid_mac)
 				if(uuid[10] & 0x80)        RETURN_FALSE; // invalid MAC 
 		
 				uuid_unparse(u, uuid_str);
-				RETURN_STRING((char *)(uuid_str + 24), 1);
+				UUID_RETSTR((char *)(uuid_str + 24));
 	} while (0);
 }
 /* }}} uuid_mac */
@@ -396,7 +396,7 @@ PHP_FUNCTION(uuid_parse)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -411,7 +411,7 @@ PHP_FUNCTION(uuid_parse)
 				RETURN_FALSE;
 			}
 		
-			RETURN_STRINGL((char *)uuid_bin, sizeof(uuid_t), 1);
+			UUID_RETSTRL((char *)uuid_bin, sizeof(uuid_t));
 	} while (0);
 }
 /* }}} uuid_parse */
@@ -423,7 +423,7 @@ PHP_FUNCTION(uuid_unparse)
 {
 
 	const char * uuid = NULL;
-	int uuid_len = 0;
+	strsize uuid_len = 0;
 
 
 
@@ -440,7 +440,7 @@ PHP_FUNCTION(uuid_unparse)
 		
 			uuid_unparse((unsigned char *)uuid, uuid_txt);
 		
-			RETURN_STRINGL(uuid_txt, 36, 1);
+			UUID_RETSTRL(uuid_txt, 36);
 	} while (0);
 }
 /* }}} uuid_unparse */

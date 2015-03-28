@@ -197,6 +197,17 @@ ZEND_END_ARG_INFO()
 
 #endif /* PHP_HAVE_UUID */
 
+#if PHP_MAJOR_VERSION < 7
+typedef long zend_long;
+typedef int  strsize;
+#define UUID_RETSTR(a)    RETURN_STRING(a,1)
+#define UUID_RETSTRL(a,l) RETURN_STRINGL(a,l,1)
+#else
+typedef size_t strsize;
+#define UUID_RETSTR(a)    RETURN_STRING(a)
+#define UUID_RETSTRL(a,l) RETURN_STRINGL(a,l)
+#endif
+
 #endif /* PHP_UUID_H */
 
 
