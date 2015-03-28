@@ -152,6 +152,8 @@ PHP_FUNCTION(uuid_create)
 {
 
 	zend_long uuid_type = UUID_TYPE_DEFAULT;
+	uuid_t uuid;
+	char uuid_str[37];
 
 
 
@@ -159,33 +161,28 @@ PHP_FUNCTION(uuid_create)
 		return;
 	}
 
-	do {
-		uuid_t uuid;
-		char uuid_str[37];
+	switch(uuid_type) {
+	  case UUID_TYPE_DCE_TIME:
+		uuid_generate_time(uuid);
+		break;
+	  case UUID_TYPE_DCE_RANDOM:
+		uuid_generate_random(uuid);
+		break;
+	  case UUID_TYPE_DEFAULT:
+		uuid_generate(uuid);
+		break;
+	  default:
+		php_error_docref(NULL TSRMLS_CC, 
+				 E_WARNING,
+				 "Unknown/invalid UUID type '%ld' requested, using default type instead",
+				 uuid_type);
+		uuid_generate(uuid);
+		break;        
+	}
 
-		switch(uuid_type) {
-		  case UUID_TYPE_DCE_TIME:
-			uuid_generate_time(uuid);
-			break;
-		  case UUID_TYPE_DCE_RANDOM:
-			uuid_generate_random(uuid);
-			break;
-		  case UUID_TYPE_DEFAULT:
-			uuid_generate(uuid);
-			break;
-		  default:
-			php_error_docref(NULL TSRMLS_CC, 
-							 E_WARNING,
-							 "Unknown/invalid UUID type '%ld' requested, using default type instead",
-							 uuid_type);
-			uuid_generate(uuid);
-			break;        
-		}
+	uuid_unparse(uuid, uuid_str);
 
-		uuid_unparse(uuid, uuid_str);
-
-		UUID_RETSTR(uuid_str);
-	} while (0);
+	UUID_RETSTR(uuid_str);
 }
 /* }}} uuid_create */
 
@@ -197,6 +194,7 @@ PHP_FUNCTION(uuid_is_valid)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	uuid_t u; 
 
 
 
@@ -204,10 +202,7 @@ PHP_FUNCTION(uuid_is_valid)
 		return;
 	}
 
-	do {
-		uuid_t u; 
-		RETURN_BOOL(0 == uuid_parse(uuid, u));
-	} while (0);
+	RETURN_BOOL(0 == uuid_parse(uuid, u));
 }
 /* }}} uuid_is_valid */
 
@@ -221,21 +216,21 @@ PHP_FUNCTION(uuid_compare)
 	strsize uuid1_len = 0;
 	const char * uuid2 = NULL;
 	strsize uuid2_len = 0;
+	uuid_t u1, u2;
 
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &uuid1, &uuid1_len, &uuid2, &uuid2_len) == FAILURE) {
 		return;
 	}
+	if (uuid_parse(uuid1, u1)) {
+		RETURN_FALSE;
+	}
+	if (uuid_parse(uuid2, u2)) {
+		RETURN_FALSE;
+	}
 
-	do {
-		uuid_t u1, u2;
-
-		if(uuid_parse(uuid1, u1)) RETURN_FALSE;
-		if(uuid_parse(uuid2, u2)) RETURN_FALSE;
-
-		RETURN_LONG(uuid_compare(u1, u2));
-	} while (0);
+	RETURN_LONG(uuid_compare(u1, u2));
 }
 /* }}} uuid_compare */
 
@@ -247,6 +242,7 @@ PHP_FUNCTION(uuid_is_null)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	uuid_t u;
 
 
 
@@ -254,13 +250,12 @@ PHP_FUNCTION(uuid_is_null)
 		return;
 	}
 
-	do {
-		uuid_t u;
 
-		if(uuid_parse(uuid, u)) RETURN_FALSE;
+	if (uuid_parse(uuid, u)) {
+		RETURN_FALSE;
+	}
 
-		RETURN_BOOL(uuid_is_null(u));
-	} while (0);
+	RETURN_BOOL(uuid_is_null(u));
 }
 /* }}} uuid_is_null */
 
@@ -273,6 +268,7 @@ PHP_FUNCTION(uuid_type)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	uuid_t u;
 
 
 
@@ -280,15 +276,14 @@ PHP_FUNCTION(uuid_type)
 		return;
 	}
 
-	do {
-		uuid_t u;
+	if (uuid_parse(uuid, u)) {
+		RETURN_FALSE;
+	}
+	if (uuid_is_null(u)) {
+		RETURN_LONG(UUID_TYPE_NULL);
+	}
 
-		if(uuid_parse(uuid, u)) RETURN_FALSE;
-
-		if (uuid_is_null(u)) RETURN_LONG(UUID_TYPE_NULL);
-
-		RETURN_LONG(uuid_type(u));
-	} while (0);
+	RETURN_LONG(uuid_type(u));
 }
 /* }}} uuid_type */
 
@@ -302,6 +297,7 @@ PHP_FUNCTION(uuid_variant)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	uuid_t u;
 
 
 
@@ -309,15 +305,14 @@ PHP_FUNCTION(uuid_variant)
 		return;
 	}
 
-	do {
-		uuid_t u;
+	if (uuid_parse(uuid, u)) {
+		RETURN_FALSE;
+	}
+	if (uuid_is_null(u)) {
+		RETURN_LONG(UUID_TYPE_NULL);
+	}
 
-		if(uuid_parse(uuid, u)) RETURN_FALSE;
-
-		if (uuid_is_null(u)) RETURN_LONG(UUID_TYPE_NULL);
-
-		RETURN_LONG(uuid_variant(u));
-	} while (0);
+	RETURN_LONG(uuid_variant(u));
 }
 /* }}} uuid_variant */
 
@@ -330,6 +325,7 @@ PHP_FUNCTION(uuid_time)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	uuid_t u;
 
 
 
@@ -337,19 +333,21 @@ PHP_FUNCTION(uuid_time)
 		return;
 	}
 
-	do {
-		uuid_t u;
-
-		if(uuid_parse(uuid, u))  RETURN_FALSE;
+	if (uuid_parse(uuid, u)) {
+		RETURN_FALSE;
+	}
 #if HAVE_UUID_VARIANT
-		if(uuid_variant(u) != 1) RETURN_FALSE;
+	if (uuid_variant(u) != 1) {
+		RETURN_FALSE;
+	}
 #endif
 #if HAVE_UUID_TYPE
-		if(uuid_type(u) != 1)    RETURN_FALSE;
+	if (uuid_type(u) != 1) {
+		RETURN_FALSE;
+	}
 #endif 
 
-		RETURN_LONG(uuid_time(u, NULL));
-	} while (0);
+	RETURN_LONG(uuid_time(u, NULL));
 }
 /* }}} uuid_time */
 
@@ -361,6 +359,8 @@ PHP_FUNCTION(uuid_mac)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	uuid_t u;
+	char uuid_str[37];
 
 
 
@@ -368,23 +368,25 @@ PHP_FUNCTION(uuid_mac)
 		return;
 	}
 
-	do {
-		uuid_t u;
-				char uuid_str[37];
-		
-				if(uuid_parse(uuid, u))  RETURN_FALSE;
+	if (uuid_parse(uuid, u)) {
+		RETURN_FALSE;
+	}
 #if HAVE_UUID_VARIANT
-				if(uuid_variant(u) != 1) RETURN_FALSE;
+	if (uuid_variant(u) != 1) {
+		RETURN_FALSE;
+	}
 #endif
 #if HAVE_UUID_TYPE
-				if(uuid_type(u) != 1)    RETURN_FALSE;
+	if (uuid_type(u) != 1) {
+		RETURN_FALSE;
+	}
 #endif 
 		
-				if(uuid[10] & 0x80)        RETURN_FALSE; // invalid MAC 
-		
-				uuid_unparse(u, uuid_str);
-				UUID_RETSTR((char *)(uuid_str + 24));
-	} while (0);
+	if (uuid[10] & 0x80) {
+		RETURN_FALSE; // invalid MAC 
+	}		
+	uuid_unparse(u, uuid_str);
+	UUID_RETSTR((char *)(uuid_str + 24));
 }
 /* }}} uuid_mac */
 
@@ -396,6 +398,7 @@ PHP_FUNCTION(uuid_parse)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	uuid_t uuid_bin;
 
 
 
@@ -403,15 +406,11 @@ PHP_FUNCTION(uuid_parse)
 		return;
 	}
 
-	do {
-		uuid_t uuid_bin;
-		
-			if (uuid_parse(uuid, uuid_bin)) {
-				RETURN_FALSE;
-			}
-		
-			UUID_RETSTRL((char *)uuid_bin, sizeof(uuid_t));
-	} while (0);
+	if (uuid_parse(uuid, uuid_bin)) {
+		RETURN_FALSE;
+	}
+	
+	UUID_RETSTRL((char *)uuid_bin, sizeof(uuid_t));
 }
 /* }}} uuid_parse */
 
@@ -423,6 +422,7 @@ PHP_FUNCTION(uuid_unparse)
 
 	const char * uuid = NULL;
 	strsize uuid_len = 0;
+	char uuid_txt[37];
 
 
 
@@ -430,17 +430,13 @@ PHP_FUNCTION(uuid_unparse)
 		return;
 	}
 
-	do {
-		char uuid_txt[37];
+	if (uuid_len != sizeof(uuid_t)) {
+		RETURN_FALSE;
+	}
 		
-			if (uuid_len != sizeof(uuid_t)) {
-				RETURN_FALSE;
-			}
+	uuid_unparse((unsigned char *)uuid, uuid_txt);
 		
-			uuid_unparse((unsigned char *)uuid, uuid_txt);
-		
-			UUID_RETSTRL(uuid_txt, 36);
-	} while (0);
+	UUID_RETSTRL(uuid_txt, 36);
 }
 /* }}} uuid_unparse */
 
