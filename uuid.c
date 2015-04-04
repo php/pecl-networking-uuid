@@ -44,7 +44,11 @@ zend_function_entry uuid_functions[] = {
 	PHP_FE(uuid_mac            , uuid_mac_arg_info)
 	PHP_FE(uuid_parse          , uuid_parse_arg_info)
 	PHP_FE(uuid_unparse        , uuid_unparse_arg_info)
+#ifdef PHP_FE_END
+	PHP_FE_END
+#else
 	{ NULL, NULL, NULL }
+#endif
 };
 /* }}} */
 
