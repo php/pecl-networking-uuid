@@ -136,9 +136,9 @@ PHP_MINFO_FUNCTION(uuid)
 {
 	php_info_print_table_start();
 	php_info_print_table_header(2, "UUID extension", "enabled");
-	php_info_print_table_row(2, "Version", PHP_UUID_VERSION " (stable)");
+	php_info_print_table_row(2, "Version",  PHP_UUID_VERSION " (" PHP_UUID_STATE ")");
 	php_info_print_table_row(2, "Released", PHP_UUID_RELEASED);
-	php_info_print_table_row(2, "Authors", "Hartmut Holzgraefe 'hartmut@php.net' (lead)\n");
+	php_info_print_table_row(2, "Authors",  PHP_UUID_AUTHORS);
 	php_info_print_table_end();
 	/* add your stuff here */
 

@@ -22,10 +22,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <email>hartmut@php.net</email>
     <active>yes</active>
   </lead>
+  <lead>
+    <name>Remi Collet</name>
+    <user>remim</user>
+    <email>yes@php.net</email>
+    <active>yes</active>
+  </lead>
 
-  <date>2012-06-18</date>
+  <date>2015-04-04</date>
   <version>
-    <release>1.0.3</release>
+    <release>1.0.4RC1</release>
     <api>1.0.2</api>
   </version>
   <stability>
@@ -36,7 +42,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
 
   <notes>
-- Fixed build on PHP 5.3+
+- PHP 7 compatibility
+- add LICENSE in documentation
+- various build fix
   </notes>
 
   <contents>
@@ -80,7 +88,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </extsrcrelease>
   
   <changelog>
-   <release>    
+   <release>
     <version>
       <release>1.0.2</release>
       <api>1.0.2</api>
@@ -97,6 +105,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - now generated using PEAR::CodeGen_PECL
 
     </notes>
+   </release>
+   <release>
+      <version>
+        <release>1.0.3</release>
+        <api>1.0.2</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
+      <date>2012-06-18</date>
+      <notes>
+- Fixed build on PHP 5.3+
+      </notes>
    </release>
   </changelog>
 
