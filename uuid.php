@@ -1,4 +1,4 @@
-<?
+<?php
 if(!extension_loaded('uuid')) {
 	dl('uuid.so');
 }
@@ -9,9 +9,8 @@ foreach($functions as $func) {
     echo $func."<br>\n";
 }
 echo "<br>\n";
-$function = 'confirm_' . $module . '_compiled';
 if (extension_loaded($module)) {
-	$str = $function($module);
+	$str = sprintf("Module %s version %s loaded", $module, phpversion($module));
 } else {
 	$str = "Module $module is not compiled into PHP";
 }
