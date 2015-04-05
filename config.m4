@@ -2,7 +2,7 @@ dnl
 dnl $ Id: $
 dnl
 
-PHP_ARG_WITH(uuid, whether uuid is available,[  --with-uuid[=DIR]    With uuid support])
+PHP_ARG_WITH(uuid, whether uuid is available,[  --with-uuid[=DIR]         With uuid support])
 
 
 if test "$PHP_UUID" != "no"; then
@@ -29,21 +29,6 @@ if test "$PHP_UUID" != "no"; then
 
   PHP_ADD_LIBRARY_WITH_PATH(uuid, $PHP_UUID_DIR/$PHP_LIBDIR, UUID_SHARED_LIBADD)
   export CPPFLAGS="$OLD_CPPFLAGS"
-
-  export OLD_CPPFLAGS="$CPPFLAGS"
-  export CPPFLAGS="$CPPFLAGS $INCLUDES -DHAVE_UUID"
-
-  AC_MSG_CHECKING(PHP version)
-  AC_TRY_COMPILE([#include <php_version.h>], [
-#if PHP_VERSION_ID < 40000
-#error  this extension requires at least PHP version 4.0.0
-#endif
-],
-[AC_MSG_RESULT(ok)],
-[AC_MSG_ERROR([need at least PHP 4.0.0])])
-
-  export CPPFLAGS="$OLD_CPPFLAGS"
-
 
   PHP_SUBST(UUID_SHARED_LIBADD)
   AC_DEFINE(HAVE_UUID, 1, [ ])

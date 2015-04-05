@@ -90,99 +90,59 @@ PHP_MINFO_FUNCTION(uuid);
 
 
 PHP_FUNCTION(uuid_create);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_create_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
   ZEND_ARG_INFO(0, uuid_type)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_create_arg_info NULL
-#endif
 
 PHP_FUNCTION(uuid_is_valid);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_is_valid_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_is_valid_arg_info NULL
-#endif
 
 PHP_FUNCTION(uuid_compare);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_compare_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
   ZEND_ARG_INFO(0, uuid1)
   ZEND_ARG_INFO(0, uuid2)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_compare_arg_info NULL
-#endif
 
 PHP_FUNCTION(uuid_is_null);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_is_null_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_is_null_arg_info NULL
-#endif
 
 #if HAVE_UUID_TYPE
 PHP_FUNCTION(uuid_type);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_type_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_type_arg_info NULL
-#endif
-
 #endif /* HAVE_UUID_TYPE */
+
 #if HAVE_UUID_VARIANT
 PHP_FUNCTION(uuid_variant);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_variant_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_variant_arg_info NULL
-#endif
-
 #endif /* HAVE_UUID_VARIANT */
+
 PHP_FUNCTION(uuid_time);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_time_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_time_arg_info NULL
-#endif
 
 PHP_FUNCTION(uuid_mac);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_mac_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_mac_arg_info NULL
-#endif
 
 PHP_FUNCTION(uuid_parse);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_parse_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_parse_arg_info NULL
-#endif
 
 PHP_FUNCTION(uuid_unparse);
-#if (PHP_MAJOR_VERSION >= 5)
 ZEND_BEGIN_ARG_INFO_EX(uuid_unparse_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
-#else /* PHP 4.x */
-#define uuid_unparse_arg_info NULL
-#endif
 
 #ifdef  __cplusplus
 } // extern "C" 
