@@ -38,9 +38,9 @@ extern "C" {
 #include <php.h>
 
 #ifdef HAVE_UUID
-#define PHP_UUID_VERSION    "1.0.4RC2"
-#define PHP_UUID_RELEASED   "2015-04-08"
-#define PHP_UUID_STATE      "beta"
+#define PHP_UUID_VERSION    "1.0.4"
+#define PHP_UUID_RELEASED   "2015-05-08"
+#define PHP_UUID_STATE      "stable"
 #define PHP_UUID_AUTHORS    "Hartmut Holzgraefe, Remi Collet"
 
 
