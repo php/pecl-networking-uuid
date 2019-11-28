@@ -31,7 +31,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
   <date>2019-11-28</date>
   <version>
-    <release>1.0.5</release>
+    <release>1.0.6dev</release>
     <api>1.0.2</api>
   </version>
   <stability>
@@ -42,7 +42,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
 
   <notes>
-- add missing constant UUID_VARIANT_NCS
+-
   </notes>
 
   <contents>
@@ -138,6 +138,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - various build fix
       </notes>
    </release>
-  </changelog>
 
+   <release>
+      <date>2019-11-28</date>
+      <version>
+        <release>1.0.5</release>
+        <api>1.0.2</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
+      <notes>
+- add missing constant UUID_VARIANT_NCS
+      </notes>
+   </release>
+  </changelog>
 </package>
