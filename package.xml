@@ -31,7 +31,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
   <date>2015-05-08</date>
   <version>
-    <release>1.0.4</release>
+    <release>1.0.5dev</release>
     <api>1.0.2</api>
   </version>
   <stability>
@@ -42,9 +42,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
 
   <notes>
-- PHP 7 compatibility
-- add LICENSE in documentation
-- various build fix
+- 
   </notes>
 
   <contents>
@@ -106,6 +104,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
     </notes>
    </release>
+
    <release>
       <version>
         <release>1.0.3</release>
@@ -119,6 +118,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <date>2012-06-18</date>
       <notes>
 - Fixed build on PHP 5.3+
+      </notes>
+   </release>
+
+   <release>
+      <date>2015-05-08</date>
+         <version>
+            <release>1.0.4</release>
+            <api>1.0.2</api>
+         </version>
+      <stability>
+         <release>stable</release>
+         <api>stable</api>
+      </stability>
+      <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
+      <notes>
+- PHP 7 compatibility
+- add LICENSE in documentation
+- various build fix
       </notes>
    </release>
   </changelog>
