@@ -69,24 +69,6 @@ PHP_RINIT_FUNCTION(uuid);
 PHP_RSHUTDOWN_FUNCTION(uuid);
 PHP_MINFO_FUNCTION(uuid);
 
-#ifdef ZTS
-#include "TSRM.h"
-#endif
-
-#define FREE_RESOURCE(resource) zend_list_delete(Z_LVAL_P(resource))
-
-#define PROP_GET_LONG(name)    Z_LVAL_P(zend_read_property(_this_ce, _this_zval, #name, strlen(#name), 1 TSRMLS_CC))
-#define PROP_SET_LONG(name, l) zend_update_property_long(_this_ce, _this_zval, #name, strlen(#name), l TSRMLS_CC)
-
-#define PROP_GET_DOUBLE(name)    Z_DVAL_P(zend_read_property(_this_ce, _this_zval, #name, strlen(#name), 1 TSRMLS_CC))
-#define PROP_SET_DOUBLE(name, d) zend_update_property_double(_this_ce, _this_zval, #name, strlen(#name), d TSRMLS_CC)
-
-#define PROP_GET_STRING(name)    Z_STRVAL_P(zend_read_property(_this_ce, _this_zval, #name, strlen(#name), 1 TSRMLS_CC))
-#define PROP_GET_STRLEN(name)    Z_STRLEN_P(zend_read_property(_this_ce, _this_zval, #name, strlen(#name), 1 TSRMLS_CC))
-#define PROP_SET_STRING(name, s) zend_update_property_string(_this_ce, _this_zval, #name, strlen(#name), s TSRMLS_CC)
-#define PROP_SET_STRINGL(name, s, l) zend_update_property_stringl(_this_ce, _this_zval, #name, strlen(#name), s, l TSRMLS_CC)
-
-
 PHP_FUNCTION(uuid_create);
 ZEND_BEGIN_ARG_INFO_EX(uuid_create_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
   ZEND_ARG_INFO(0, uuid_type)
@@ -172,17 +154,6 @@ ZEND_END_ARG_INFO()
 #define UUID_TYPE_INVALID -42
 
 #endif /* PHP_HAVE_UUID */
-
-#if PHP_MAJOR_VERSION < 7
-typedef long zend_long;
-typedef int  strsize;
-#define UUID_RETSTR(a)    RETURN_STRING(a,1)
-#define UUID_RETSTRL(a,l) RETURN_STRINGL(a,l,1)
-#else
-typedef size_t strsize;
-#define UUID_RETSTR(a)    RETURN_STRING(a)
-#define UUID_RETSTRL(a,l) RETURN_STRINGL(a,l)
-#endif
 
 #endif /* PHP_UUID_H */
 

@@ -48,11 +48,7 @@ zend_function_entry uuid_functions[] = {
 	PHP_FE(uuid_mac            , uuid_mac_arg_info)
 	PHP_FE(uuid_parse          , uuid_parse_arg_info)
 	PHP_FE(uuid_unparse        , uuid_unparse_arg_info)
-#ifdef PHP_FE_END
 	PHP_FE_END
-#else
-	{ NULL, NULL, NULL }
-#endif
 };
 /* }}} */
 
@@ -64,9 +60,9 @@ zend_module_entry uuid_module_entry = {
 	"uuid",
 	uuid_functions,
 	PHP_MINIT(uuid),     /* Replace with NULL if there is nothing to do at php startup   */ 
-	PHP_MSHUTDOWN(uuid), /* Replace with NULL if there is nothing to do at php shutdown  */
-	PHP_RINIT(uuid),     /* Replace with NULL if there is nothing to do at request start */
-	PHP_RSHUTDOWN(uuid), /* Replace with NULL if there is nothing to do at request end   */
+	NULL,                /* Replace with NULL if there is nothing to do at php shutdown  */
+	NULL,                /* Replace with NULL if there is nothing to do at request start */
+	NULL,                /* Replace with NULL if there is nothing to do at request end   */
 	PHP_MINFO(uuid),
 	PHP_UUID_VERSION, 
 	STANDARD_MODULE_PROPERTIES
@@ -120,37 +116,6 @@ PHP_MINIT_FUNCTION(uuid)
 /* }}} */
 
 
-/* {{{ PHP_MSHUTDOWN_FUNCTION */
-PHP_MSHUTDOWN_FUNCTION(uuid)
-{
-
-	/* add your stuff here */
-
-	return SUCCESS;
-}
-/* }}} */
-
-
-/* {{{ PHP_RINIT_FUNCTION */
-PHP_RINIT_FUNCTION(uuid)
-{
-	/* add your stuff here */
-
-	return SUCCESS;
-}
-/* }}} */
-
-
-/* {{{ PHP_RSHUTDOWN_FUNCTION */
-PHP_RSHUTDOWN_FUNCTION(uuid)
-{
-	/* add your stuff here */
-
-	return SUCCESS;
-}
-/* }}} */
-
-
 /* {{{ PHP_MINFO_FUNCTION */
 PHP_MINFO_FUNCTION(uuid)
 {
@@ -177,7 +142,7 @@ PHP_FUNCTION(uuid_create)
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "|l", &uuid_type) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "|l", &uuid_type) == FAILURE) {
 		return;
 	}
 
@@ -192,7 +157,7 @@ PHP_FUNCTION(uuid_create)
 		uuid_generate(uuid);
 		break;
 	  default:
-		php_error_docref(NULL TSRMLS_CC, 
+		php_error_docref(NULL,
 				 E_WARNING,
 				 "Unknown/invalid UUID type '%ld' requested, using default type instead",
 				 uuid_type);
@@ -202,7 +167,7 @@ PHP_FUNCTION(uuid_create)
 
 	uuid_unparse(uuid, uuid_str);
 
-	UUID_RETSTR(uuid_str);
+	RETURN_STRING(uuid_str);
 }
 /* }}} uuid_create */
 
@@ -213,12 +178,12 @@ PHP_FUNCTION(uuid_is_valid)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	uuid_t u; 
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -233,14 +198,14 @@ PHP_FUNCTION(uuid_compare)
 {
 
 	const char * uuid1 = NULL;
-	strsize uuid1_len = 0;
+	size_t uuid1_len = 0;
 	const char * uuid2 = NULL;
-	strsize uuid2_len = 0;
+	size_t uuid2_len = 0;
 	uuid_t u1, u2;
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &uuid1, &uuid1_len, &uuid2, &uuid2_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &uuid1, &uuid1_len, &uuid2, &uuid2_len) == FAILURE) {
 		return;
 	}
 	if (uuid_parse(uuid1, u1)) {
@@ -261,12 +226,12 @@ PHP_FUNCTION(uuid_is_null)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	uuid_t u;
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -287,11 +252,11 @@ PHP_FUNCTION(uuid_generate_md5)
 {
 
 	const char * uuid, * name;
-	strsize uuid_len, name_len;
+	size_t uuid_len, name_len;
 	uuid_t ns, out;
 	char uuid_str[37];
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
 		return;
 	}
 
@@ -301,7 +266,7 @@ PHP_FUNCTION(uuid_generate_md5)
 	uuid_generate_md5(out, ns, name, name_len);
 	uuid_unparse(out, uuid_str);
 
-	UUID_RETSTR(uuid_str);
+	RETURN_STRING(uuid_str);
 }
 /* }}} uuid_generate_md5 */
 #endif /* HAVE_UUID_GENERATE_MD5 */
@@ -314,11 +279,11 @@ PHP_FUNCTION(uuid_generate_sha1)
 {
 
 	const char * uuid, * name;
-	strsize uuid_len, name_len;
+	size_t uuid_len, name_len;
 	uuid_t ns, out;
 	char uuid_str[37];
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
 		return;
 	}
 
@@ -328,7 +293,7 @@ PHP_FUNCTION(uuid_generate_sha1)
 	uuid_generate_sha1(out, ns, name, name_len);
 	uuid_unparse(out, uuid_str);
 
-	UUID_RETSTR(uuid_str);
+	RETURN_STRING(uuid_str);
 }
 /* }}} uuid_generate_sha1 */
 #endif /* HAVE_UUID_GENERATE_SHA1 */
@@ -341,12 +306,12 @@ PHP_FUNCTION(uuid_type)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	uuid_t u;
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -370,12 +335,12 @@ PHP_FUNCTION(uuid_variant)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	uuid_t u;
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -398,12 +363,12 @@ PHP_FUNCTION(uuid_time)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	uuid_t u;
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -432,13 +397,13 @@ PHP_FUNCTION(uuid_mac)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	uuid_t u;
 	char uuid_str[37];
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -460,7 +425,7 @@ PHP_FUNCTION(uuid_mac)
 		RETURN_FALSE; // invalid MAC 
 	}		
 	uuid_unparse(u, uuid_str);
-	UUID_RETSTR((char *)(uuid_str + 24));
+	RETURN_STRING((char *)(uuid_str + 24));
 }
 /* }}} uuid_mac */
 
@@ -471,12 +436,12 @@ PHP_FUNCTION(uuid_parse)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	uuid_t uuid_bin;
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -484,7 +449,7 @@ PHP_FUNCTION(uuid_parse)
 		RETURN_FALSE;
 	}
 	
-	UUID_RETSTRL((char *)uuid_bin, sizeof(uuid_t));
+	RETURN_STRINGL((char *)uuid_bin, sizeof(uuid_t));
 }
 /* }}} uuid_parse */
 
@@ -495,12 +460,12 @@ PHP_FUNCTION(uuid_unparse)
 {
 
 	const char * uuid = NULL;
-	strsize uuid_len = 0;
+	size_t uuid_len = 0;
 	char uuid_txt[37];
 
 
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &uuid, &uuid_len) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
 		return;
 	}
 
@@ -510,7 +475,7 @@ PHP_FUNCTION(uuid_unparse)
 		
 	uuid_unparse((unsigned char *)uuid, uuid_txt);
 		
-	UUID_RETSTRL(uuid_txt, 36);
+	RETURN_STRINGL(uuid_txt, 36);
 }
 /* }}} uuid_unparse */
 

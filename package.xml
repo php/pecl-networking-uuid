@@ -72,12 +72,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <dependencies>
     <required>
       <php>
-        <min>5.3.0</min>
+        <min>7.0.0</min>
       </php>
       <pearinstaller>
-        <min>1.9.0</min>
+        <min>1.10.0</min>
       </pearinstaller>
-    <os><name>unix</name></os>
+      <os>
+        <name>unix</name>
+      </os>
     </required>
   </dependencies>
 
