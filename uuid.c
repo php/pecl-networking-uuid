@@ -26,7 +26,7 @@
 
 #include "php_uuid.h"
 
-#if HAVE_UUID
+#ifdef HAVE_UUID
 
 /* {{{ uuid_functions[] */
 zend_function_entry uuid_functions[] = {
@@ -34,10 +34,10 @@ zend_function_entry uuid_functions[] = {
 	PHP_FE(uuid_is_valid       , uuid_is_valid_arg_info)
 	PHP_FE(uuid_compare        , uuid_compare_arg_info)
 	PHP_FE(uuid_is_null        , uuid_is_null_arg_info)
-#if HAVE_UUID_TYPE
+#ifdef HAVE_UUID_TYPE
 	PHP_FE(uuid_type           , uuid_type_arg_info)
 #endif /* HAVE_UUID_TYPE */
-#if HAVE_UUID_VARIANT
+#ifdef HAVE_UUID_VARIANT
 	PHP_FE(uuid_variant        , uuid_variant_arg_info)
 #endif /* HAVE_UUID_VARIANT */
 	PHP_FE(uuid_time           , uuid_time_arg_info)
@@ -77,16 +77,16 @@ ZEND_GET_MODULE(uuid)
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(uuid)
 {
-#if UUID_VARIANT_NCS
+#ifdef UUID_VARIANT_NCS
 	REGISTER_LONG_CONSTANT("UUID_VARIANT_NCS", UUID_VARIANT_NCS, CONST_PERSISTENT | CONST_CS);
 #endif /* UUID_VARIANT_NCS */
-#if UUID_VARIANT_DCE
+#ifdef UUID_VARIANT_DCE
 	REGISTER_LONG_CONSTANT("UUID_VARIANT_DCE", UUID_VARIANT_DCE, CONST_PERSISTENT | CONST_CS);
 #endif /* UUID_VARIANT_DCE */
-#if UUID_VARIANT_MICROSOFT
+#ifdef UUID_VARIANT_MICROSOFT
 	REGISTER_LONG_CONSTANT("UUID_VARIANT_MICROSOFT", UUID_VARIANT_MICROSOFT, CONST_PERSISTENT | CONST_CS);
 #endif /* UUID_VARIANT_MICROSOFT */
-#if UUID_VARIANT_OTHER
+#ifdef UUID_VARIANT_OTHER
 	REGISTER_LONG_CONSTANT("UUID_VARIANT_OTHER", UUID_VARIANT_OTHER, CONST_PERSISTENT | CONST_CS);
 #endif /* UUID_VARIANT_OTHER */
 	REGISTER_LONG_CONSTANT("UUID_TYPE_DEFAULT", 0, CONST_PERSISTENT | CONST_CS);
@@ -264,7 +264,7 @@ PHP_FUNCTION(uuid_is_null)
 /* }}} uuid_is_null */
 
 
-#if HAVE_UUID_TYPE
+#ifdef HAVE_UUID_TYPE
 /* {{{ proto int uuid_type(string uuid)
   Return the UUIDs type */
 PHP_FUNCTION(uuid_type)
@@ -293,7 +293,7 @@ PHP_FUNCTION(uuid_type)
 
 #endif /* HAVE_UUID_TYPE */
 
-#if HAVE_UUID_VARIANT
+#ifdef HAVE_UUID_VARIANT
 /* {{{ proto int uuid_variant(string uuid)
   Return the UUIDs variant */
 PHP_FUNCTION(uuid_variant)
@@ -340,12 +340,12 @@ PHP_FUNCTION(uuid_time)
 	if (uuid_parse(uuid, u)) {
 		RETURN_FALSE;
 	}
-#if HAVE_UUID_VARIANT
+#ifdef HAVE_UUID_VARIANT
 	if (uuid_variant(u) != 1) {
 		RETURN_FALSE;
 	}
 #endif
-#if HAVE_UUID_TYPE
+#ifdef HAVE_UUID_TYPE
 	if (uuid_type(u) != 1) {
 		RETURN_FALSE;
 	}
@@ -375,12 +375,12 @@ PHP_FUNCTION(uuid_mac)
 	if (uuid_parse(uuid, u)) {
 		RETURN_FALSE;
 	}
-#if HAVE_UUID_VARIANT
+#ifdef HAVE_UUID_VARIANT
 	if (uuid_variant(u) != 1) {
 		RETURN_FALSE;
 	}
 #endif
-#if HAVE_UUID_TYPE
+#ifdef HAVE_UUID_TYPE
 	if (uuid_type(u) != 1) {
 		RETURN_FALSE;
 	}

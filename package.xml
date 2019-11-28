@@ -42,7 +42,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
 
   <notes>
-- 
+- add missing constant UUID_VARIANT_NCS
   </notes>
 
   <contents>
