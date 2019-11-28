@@ -22,8 +22,6 @@
    +----------------------------------------------------------------------+
 */
 
-/* $ Id: $ */ 
-
 #include "php_uuid.h"
 
 #ifdef HAVE_UUID
@@ -34,6 +32,12 @@ zend_function_entry uuid_functions[] = {
 	PHP_FE(uuid_is_valid       , uuid_is_valid_arg_info)
 	PHP_FE(uuid_compare        , uuid_compare_arg_info)
 	PHP_FE(uuid_is_null        , uuid_is_null_arg_info)
+#ifdef HAVE_UUID_GENERATE_MD5
+	PHP_FE(uuid_generate_md5   , uuid_generate_md5_arg_info)
+#endif
+#ifdef HAVE_UUID_GENERATE_SHA1
+	PHP_FE(uuid_generate_sha1  , uuid_generate_sha1_arg_info)
+#endif
 #ifdef HAVE_UUID_TYPE
 	PHP_FE(uuid_type           , uuid_type_arg_info)
 #endif /* HAVE_UUID_TYPE */
@@ -90,10 +94,22 @@ PHP_MINIT_FUNCTION(uuid)
 	REGISTER_LONG_CONSTANT("UUID_VARIANT_OTHER", UUID_VARIANT_OTHER, CONST_PERSISTENT | CONST_CS);
 #endif /* UUID_VARIANT_OTHER */
 	REGISTER_LONG_CONSTANT("UUID_TYPE_DEFAULT", 0, CONST_PERSISTENT | CONST_CS);
-	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME", UUID_TYPE_DCE_TIME, CONST_PERSISTENT | CONST_CS);
+/* deprecated alias */
 	REGISTER_LONG_CONSTANT("UUID_TYPE_DCE", UUID_TYPE_DCE_RANDOM, CONST_PERSISTENT | CONST_CS);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_NAME", UUID_TYPE_DCE_TIME, CONST_PERSISTENT | CONST_CS);
+/* library types */
+	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME", UUID_TYPE_DCE_TIME, CONST_PERSISTENT | CONST_CS);
+#ifdef UUID_TYPE_DCE_SECURITY
+	REGISTER_LONG_CONSTANT("UUID_TYPE_SECURITY", UUID_TYPE_DCE_SECURITY, CONST_PERSISTENT | CONST_CS);
+#endif
+#ifdef UUID_TYPE_DCE_MD5
+	REGISTER_LONG_CONSTANT("UUID_TYPE_MD5", UUID_TYPE_DCE_MD5, CONST_PERSISTENT | CONST_CS);
+#endif
 	REGISTER_LONG_CONSTANT("UUID_TYPE_RANDOM", UUID_TYPE_DCE_RANDOM, CONST_PERSISTENT | CONST_CS);
+#ifdef UUID_TYPE_DCE_SHA1
+	REGISTER_LONG_CONSTANT("UUID_TYPE_SHA1", UUID_TYPE_DCE_SHA1, CONST_PERSISTENT | CONST_CS);
+#endif
+/* extension specific types */
 	REGISTER_LONG_CONSTANT("UUID_TYPE_NULL", -1, CONST_PERSISTENT | CONST_CS);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_INVALID", -42, CONST_PERSISTENT | CONST_CS);
 
@@ -262,6 +278,60 @@ PHP_FUNCTION(uuid_is_null)
 	RETURN_BOOL(uuid_is_null(u));
 }
 /* }}} uuid_is_null */
+
+
+#ifdef HAVE_UUID_GENERATE_MD5
+/* {{{ proto int uuid_generate_md5(string uuid_ns, string name)
+  Generate a MD5 hashed (predictable) UUID based on a well-known UUID */
+PHP_FUNCTION(uuid_generate_md5)
+{
+
+	const char * uuid, * name;
+	strsize uuid_len, name_len;
+	uuid_t ns, out;
+	char uuid_str[37];
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
+		return;
+	}
+
+	if (uuid_parse(uuid, ns)) {
+		RETURN_FALSE;
+	}
+	uuid_generate_md5(out, ns, name, name_len);
+	uuid_unparse(out, uuid_str);
+
+	UUID_RETSTR(uuid_str);
+}
+/* }}} uuid_generate_md5 */
+#endif /* HAVE_UUID_GENERATE_MD5 */
+
+
+#ifdef HAVE_UUID_GENERATE_SHA1
+/* {{{ proto int uuid_generate_sha1(string uuid_ns, string name)
+  Generate a SHA1 hashed (predictable) UUID based on a well-known UUID */
+PHP_FUNCTION(uuid_generate_sha1)
+{
+
+	const char * uuid, * name;
+	strsize uuid_len, name_len;
+	uuid_t ns, out;
+	char uuid_str[37];
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
+		return;
+	}
+
+	if (uuid_parse(uuid, ns)) {
+		RETURN_FALSE;
+	}
+	uuid_generate_sha1(out, ns, name, name_len);
+	uuid_unparse(out, uuid_str);
+
+	UUID_RETSTR(uuid_str);
+}
+/* }}} uuid_generate_sha1 */
+#endif /* HAVE_UUID_GENERATE_SHA1 */
 
 
 #ifdef HAVE_UUID_TYPE

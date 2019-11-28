@@ -1,9 +1,4 @@
-dnl
-dnl $ Id: $
-dnl
-
 PHP_ARG_WITH(uuid, whether uuid is available,[  --with-uuid[=DIR]         With uuid support])
-
 
 if test "$PHP_UUID" != "no"; then
 
@@ -21,6 +16,8 @@ if test "$PHP_UUID" != "no"; then
   PHP_ADD_INCLUDE($PHP_UUID_DIR/include)
   PHP_CHECK_FUNC_LIB(uuid_type, uuid)
   PHP_CHECK_FUNC_LIB(uuid_variant, uuid)
+  PHP_CHECK_FUNC_LIB(uuid_generate_md5, uuid)
+  PHP_CHECK_FUNC_LIB(uuid_generate_sha1, uuid)
 
   export OLD_CPPFLAGS="$CPPFLAGS"
   export CPPFLAGS="$CPPFLAGS $INCLUDES -DHAVE_UUID"

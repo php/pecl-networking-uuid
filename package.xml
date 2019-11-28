@@ -31,7 +31,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
   <date>2019-11-28</date>
   <version>
-    <release>1.0.6dev</release>
+    <release>1.1.0dev</release>
     <api>1.0.2</api>
   </version>
   <stability>
@@ -42,7 +42,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
 
   <notes>
--
+- add uuid_generate_md5 and uuid_generate_sha1 functions
   </notes>
 
   <contents>
@@ -63,6 +63,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file role='test' name='uuid_mac.phpt'/>
         <file role='test' name='uuid_parse.phpt'/>
         <file role='test' name='uuid_unparse.phpt'/>
+        <file role='test' name='uuid_generate_md5.phpt'/>
+        <file role='test' name='uuid_generate_sha1.phpt'/>
       </dir>
     </dir>
   </contents>

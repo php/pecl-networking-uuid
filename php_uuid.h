@@ -22,8 +22,6 @@
    +----------------------------------------------------------------------+
 */
 
-/* $ Id: $ */ 
-
 #ifndef PHP_UUID_H
 #define PHP_UUID_H
 
@@ -38,7 +36,7 @@ extern "C" {
 #include <php.h>
 
 #ifdef HAVE_UUID
-#define PHP_UUID_VERSION    "1.0.6-dev"
+#define PHP_UUID_VERSION    "1.1.0-dev"
 #define PHP_UUID_RELEASED   "2019-11-28"
 #define PHP_UUID_STATE      "stable"
 #define PHP_UUID_AUTHORS    "Hartmut Holzgraefe, Remi Collet"
@@ -109,6 +107,22 @@ PHP_FUNCTION(uuid_is_null);
 ZEND_BEGIN_ARG_INFO_EX(uuid_is_null_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
   ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
+
+#ifdef HAVE_UUID_GENERATE_MD5
+PHP_FUNCTION(uuid_generate_md5);
+ZEND_BEGIN_ARG_INFO_EX(uuid_generate_md5_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
+  ZEND_ARG_INFO(0, uuid_ns)
+  ZEND_ARG_INFO(0, name)
+ZEND_END_ARG_INFO()
+#endif /* HAVE_UUID_TYPE */
+
+#ifdef HAVE_UUID_GENERATE_SHA1
+PHP_FUNCTION(uuid_generate_sha1);
+ZEND_BEGIN_ARG_INFO_EX(uuid_generate_sha1_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
+  ZEND_ARG_INFO(0, uuid_ns)
+  ZEND_ARG_INFO(0, name)
+ZEND_END_ARG_INFO()
+#endif /* HAVE_UUID_TYPE */
 
 #ifdef HAVE_UUID_TYPE
 PHP_FUNCTION(uuid_type);
