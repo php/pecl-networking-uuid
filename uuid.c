@@ -48,6 +48,7 @@ zend_function_entry uuid_functions[] = {
 	PHP_FE(uuid_mac            , uuid_mac_arg_info)
 	PHP_FE(uuid_parse          , uuid_parse_arg_info)
 	PHP_FE(uuid_unparse        , uuid_unparse_arg_info)
+	PHP_FE(uuid_unparse_fast   , uuid_unparse_arg_info)
 	PHP_FE_END
 };
 /* }}} */
@@ -453,6 +454,38 @@ PHP_FUNCTION(uuid_parse)
 }
 /* }}} uuid_parse */
 
+static char const __str_digits_lower[36] = "0123456789abcdef";
+
+/* {{{ proto string uuid_unparse(string uuid)
+   */
+PHP_FUNCTION(uuid_unparse_fast)
+{
+
+	const unsigned char * uuid = NULL;
+	size_t uuid_len = 0;
+	char uuid_txt[37];
+    char *p = uuid_txt;
+	int i;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
+		return;
+	}
+
+	if (uuid_len != sizeof(uuid_t)) {
+		RETURN_FALSE;
+	}
+
+	for (i = 0; i < 16; i++) {
+		if (i == 4 || i == 6 || i == 8 || i == 10) {
+			*p++ = '-';
+		}
+		*p++ = __str_digits_lower[uuid[i] >> 4];
+		*p++ = __str_digits_lower[uuid[i] & 15];
+	}
+
+	RETURN_STRINGL(uuid_txt, 36);
+}
+/* }}} uuid_unparse */
 
 /* {{{ proto string uuid_unparse(string uuid)
    */
