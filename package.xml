@@ -45,6 +45,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - raise warnings on bad input value with PHP 7
 - promote warnings to ValueError with PHP 8
 - add type hinting with PHP 8
+- fix bug #66982 uuid_mac checks wrong bit/byte for valid MAC address
   </notes>
 
   <contents>

@@ -397,7 +397,7 @@ PHP_FUNCTION(uuid_mac)
 #ifdef HAVE_UUID_TYPE
 		|| (uuid_type(u) != 1)
 #endif 
-		|| (uuid[10] & 0x80)) { /* invalid MAC */
+		) {
 		VALUE_ERROR(1, "$uuid", "UUID DCE TIME expected");
 	}
 
