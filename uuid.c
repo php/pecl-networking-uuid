@@ -143,11 +143,16 @@ PHP_FUNCTION(uuid_create)
 		uuid_generate(uuid);
 		break;
 	  default:
+#if PHP_VERSION_ID < 80000
 		php_error_docref(NULL,
 				 E_WARNING,
 				 "Unknown/invalid UUID type '%ld' requested, using default type instead",
 				 uuid_type);
 		uuid_generate(uuid);
+#else
+		zend_argument_value_error(1, "Unknown/invalid UUID type '" ZEND_LONG_FMT "'", uuid_type);
+		RETURN_THROWS();
+#endif
 		break;        
 	}
 
