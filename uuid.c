@@ -19,6 +19,7 @@
    |   Boston, MA  02111-1307  USA                                        |
    +----------------------------------------------------------------------+
    | Authors: Hartmut Holzgraefe <hartmut@php.net>                        |
+   |          Remi Collet <remi@php.net>                                  |
    +----------------------------------------------------------------------+
 */
 
@@ -26,31 +27,16 @@
 
 #ifdef HAVE_UUID
 
-/* {{{ uuid_functions[] */
-zend_function_entry uuid_functions[] = {
-	PHP_FE(uuid_create         , uuid_create_arg_info)
-	PHP_FE(uuid_is_valid       , uuid_is_valid_arg_info)
-	PHP_FE(uuid_compare        , uuid_compare_arg_info)
-	PHP_FE(uuid_is_null        , uuid_is_null_arg_info)
-#ifdef HAVE_UUID_GENERATE_MD5
-	PHP_FE(uuid_generate_md5   , uuid_generate_md5_arg_info)
+#if PHP_VERSION_ID < 80000
+#define VALUE_ERROR(n,name,msg) php_error_docref(NULL, E_WARNING, "Argument #%d (%s) %s", n, name, msg); RETURN_FALSE
+#define RETURN_THROWS() return
+
+#include "uuid_legacy_arginfo.h"
+#else
+#define VALUE_ERROR(n,name,msg) zend_argument_value_error(n, msg); RETURN_THROWS()
+
+#include "uuid_arginfo.h"
 #endif
-#ifdef HAVE_UUID_GENERATE_SHA1
-	PHP_FE(uuid_generate_sha1  , uuid_generate_sha1_arg_info)
-#endif
-#ifdef HAVE_UUID_TYPE
-	PHP_FE(uuid_type           , uuid_type_arg_info)
-#endif /* HAVE_UUID_TYPE */
-#ifdef HAVE_UUID_VARIANT
-	PHP_FE(uuid_variant        , uuid_variant_arg_info)
-#endif /* HAVE_UUID_VARIANT */
-	PHP_FE(uuid_time           , uuid_time_arg_info)
-	PHP_FE(uuid_mac            , uuid_mac_arg_info)
-	PHP_FE(uuid_parse          , uuid_parse_arg_info)
-	PHP_FE(uuid_unparse        , uuid_unparse_arg_info)
-	PHP_FE_END
-};
-/* }}} */
 
 
 /* {{{ uuid_module_entry
@@ -58,7 +44,7 @@ zend_function_entry uuid_functions[] = {
 zend_module_entry uuid_module_entry = {
 	STANDARD_MODULE_HEADER,
 	"uuid",
-	uuid_functions,
+	ext_functions,
 	PHP_MINIT(uuid),     /* Replace with NULL if there is nothing to do at php startup   */ 
 	NULL,                /* Replace with NULL if there is nothing to do at php shutdown  */
 	NULL,                /* Replace with NULL if there is nothing to do at request start */
@@ -143,7 +129,7 @@ PHP_FUNCTION(uuid_create)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "|l", &uuid_type) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	switch(uuid_type) {
@@ -184,7 +170,7 @@ PHP_FUNCTION(uuid_is_valid)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	RETURN_BOOL(0 == uuid_parse(uuid, u));
@@ -206,13 +192,13 @@ PHP_FUNCTION(uuid_compare)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &uuid1, &uuid1_len, &uuid2, &uuid2_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 	if (uuid_parse(uuid1, u1)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid1", "UUID expected");
 	}
 	if (uuid_parse(uuid2, u2)) {
-		RETURN_FALSE;
+		VALUE_ERROR(2, "$uuid2", "UUID expected");
 	}
 
 	RETURN_LONG(uuid_compare(u1, u2));
@@ -232,12 +218,12 @@ PHP_FUNCTION(uuid_is_null)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 
 	if (uuid_parse(uuid, u)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid", "UUID expected");
 	}
 
 	RETURN_BOOL(uuid_is_null(u));
@@ -257,11 +243,11 @@ PHP_FUNCTION(uuid_generate_md5)
 	char uuid_str[37];
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	if (uuid_parse(uuid, ns)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid_ns", "UUID expected");
 	}
 	uuid_generate_md5(out, ns, name, name_len);
 	uuid_unparse(out, uuid_str);
@@ -284,11 +270,11 @@ PHP_FUNCTION(uuid_generate_sha1)
 	char uuid_str[37];
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &uuid, &uuid_len, &name, &name_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	if (uuid_parse(uuid, ns)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid_ns",  "UUID expected");
 	}
 	uuid_generate_sha1(out, ns, name, name_len);
 	uuid_unparse(out, uuid_str);
@@ -312,11 +298,11 @@ PHP_FUNCTION(uuid_type)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	if (uuid_parse(uuid, u)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid", "UUID expected");
 	}
 	if (uuid_is_null(u)) {
 		RETURN_LONG(UUID_TYPE_NULL);
@@ -341,11 +327,11 @@ PHP_FUNCTION(uuid_variant)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	if (uuid_parse(uuid, u)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid", "UUID expected");
 	}
 	if (uuid_is_null(u)) {
 		RETURN_LONG(UUID_TYPE_NULL);
@@ -369,22 +355,19 @@ PHP_FUNCTION(uuid_time)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
-	if (uuid_parse(uuid, u)) {
-		RETURN_FALSE;
-	}
+	if (uuid_parse(uuid, u)
 #ifdef HAVE_UUID_VARIANT
-	if (uuid_variant(u) != 1) {
-		RETURN_FALSE;
-	}
+		|| (uuid_variant(u) != 1)
 #endif
 #ifdef HAVE_UUID_TYPE
-	if (uuid_type(u) != 1) {
-		RETURN_FALSE;
-	}
+		|| (uuid_type(u) != 1)
 #endif 
+		) {
+		VALUE_ERROR(1, "$uuid", "UUID DCE TIME expected");
+	}
 
 	RETURN_LONG(uuid_time(u, NULL));
 }
@@ -404,26 +387,20 @@ PHP_FUNCTION(uuid_mac)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
-	if (uuid_parse(uuid, u)) {
-		RETURN_FALSE;
-	}
+	if (uuid_parse(uuid, u)
 #ifdef HAVE_UUID_VARIANT
-	if (uuid_variant(u) != 1) {
-		RETURN_FALSE;
-	}
+		|| (uuid_variant(u) != 1)
 #endif
 #ifdef HAVE_UUID_TYPE
-	if (uuid_type(u) != 1) {
-		RETURN_FALSE;
-	}
+		|| (uuid_type(u) != 1)
 #endif 
-		
-	if (uuid[10] & 0x80) {
-		RETURN_FALSE; // invalid MAC 
-	}		
+		|| (uuid[10] & 0x80)) { /* invalid MAC */
+		VALUE_ERROR(1, "$uuid", "UUID DCE TIME expected");
+	}
+
 	uuid_unparse(u, uuid_str);
 	RETURN_STRING((char *)(uuid_str + 24));
 }
@@ -442,11 +419,11 @@ PHP_FUNCTION(uuid_parse)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	if (uuid_parse(uuid, uuid_bin)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid", "UUID expected");
 	}
 	
 	RETURN_STRINGL((char *)uuid_bin, sizeof(uuid_t));
@@ -466,11 +443,11 @@ PHP_FUNCTION(uuid_unparse)
 
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &uuid, &uuid_len) == FAILURE) {
-		return;
+		RETURN_THROWS();
 	}
 
 	if (uuid_len != sizeof(uuid_t)) {
-		RETURN_FALSE;
+		VALUE_ERROR(1, "$uuid", "UUID expected");
 	}
 		
 	uuid_unparse((unsigned char *)uuid, uuid_txt);

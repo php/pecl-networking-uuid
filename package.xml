@@ -29,9 +29,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <active>yes</active>
   </lead>
 
-  <date>2019-11-28</date>
+  <date>2020-10-06</date>
   <version>
-    <release>1.1.0</release>
+    <release>1.2.0</release>
     <api>1.1.0</api>
   </version>
   <stability>
@@ -42,7 +42,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
 
   <notes>
-- add uuid_generate_md5 and uuid_generate_sha1 functions
+- raise warnings on bad input value with PHP 7
+- promote warnings to ValueError with PHP 8
+- add type hinting with PHP 8
   </notes>
 
   <contents>
@@ -51,6 +53,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file role='doc' name='LICENSE'/>
       <file role='src' name='config.m4'/>
       <file role='src' name='uuid.c'/>
+      <file role='src' name='uuid.stub.php'/>
+      <file role='src' name='uuid_arginfo.h'/>
+      <file role='src' name='uuid_legacy_arginfo.h'/>
       <file role='src' name='php_uuid.h'/>
       <dir name="tests">
         <file role='test' name='uuid_create.phpt'/>
@@ -91,6 +96,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   
   <changelog>
    <release>
+  <date>2019-11-28</date>
+    <version>
+      <release>1.1.0</release>
+      <api>1.1.0</api>
+    </version>
+    <stability>
+      <release>stable</release>
+      <api>stable</api>
+    </stability>
+    <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
+    <notes>
+- add uuid_generate_md5 and uuid_generate_sha1 functions
+    </notes>
+   </release>
+
+   <release>
     <version>
       <release>1.0.2</release>
       <api>1.0.2</api>
@@ -105,7 +126,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - should now work on Solaris, too (although missing two functions)
 - added uuid_parse() and uuid_unparse()
 - now generated using PEAR::CodeGen_PECL
-
     </notes>
    </release>
 

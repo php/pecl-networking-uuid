@@ -19,6 +19,7 @@
    |   Boston, MA  02111-1307  USA                                        |
    +----------------------------------------------------------------------+
    | Authors: Hartmut Holzgraefe <hartmut@php.net>                        |
+   |          Remi Collet <remi@php.net>                                  |
    +----------------------------------------------------------------------+
 */
 
@@ -36,8 +37,8 @@ extern "C" {
 #include <php.h>
 
 #ifdef HAVE_UUID
-#define PHP_UUID_VERSION    "1.1.0"
-#define PHP_UUID_RELEASED   "2019-11-28"
+#define PHP_UUID_VERSION    "1.2.0"
+#define PHP_UUID_RELEASED   "2020-10-06"
 #define PHP_UUID_STATE      "stable"
 #define PHP_UUID_AUTHORS    "Hartmut Holzgraefe, Remi Collet"
 
@@ -68,77 +69,6 @@ PHP_MSHUTDOWN_FUNCTION(uuid);
 PHP_RINIT_FUNCTION(uuid);
 PHP_RSHUTDOWN_FUNCTION(uuid);
 PHP_MINFO_FUNCTION(uuid);
-
-PHP_FUNCTION(uuid_create);
-ZEND_BEGIN_ARG_INFO_EX(uuid_create_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-  ZEND_ARG_INFO(0, uuid_type)
-ZEND_END_ARG_INFO()
-
-PHP_FUNCTION(uuid_is_valid);
-ZEND_BEGIN_ARG_INFO_EX(uuid_is_valid_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
-
-PHP_FUNCTION(uuid_compare);
-ZEND_BEGIN_ARG_INFO_EX(uuid_compare_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
-  ZEND_ARG_INFO(0, uuid1)
-  ZEND_ARG_INFO(0, uuid2)
-ZEND_END_ARG_INFO()
-
-PHP_FUNCTION(uuid_is_null);
-ZEND_BEGIN_ARG_INFO_EX(uuid_is_null_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
-
-#ifdef HAVE_UUID_GENERATE_MD5
-PHP_FUNCTION(uuid_generate_md5);
-ZEND_BEGIN_ARG_INFO_EX(uuid_generate_md5_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
-  ZEND_ARG_INFO(0, uuid_ns)
-  ZEND_ARG_INFO(0, name)
-ZEND_END_ARG_INFO()
-#endif /* HAVE_UUID_TYPE */
-
-#ifdef HAVE_UUID_GENERATE_SHA1
-PHP_FUNCTION(uuid_generate_sha1);
-ZEND_BEGIN_ARG_INFO_EX(uuid_generate_sha1_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 2)
-  ZEND_ARG_INFO(0, uuid_ns)
-  ZEND_ARG_INFO(0, name)
-ZEND_END_ARG_INFO()
-#endif /* HAVE_UUID_TYPE */
-
-#ifdef HAVE_UUID_TYPE
-PHP_FUNCTION(uuid_type);
-ZEND_BEGIN_ARG_INFO_EX(uuid_type_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
-#endif /* HAVE_UUID_TYPE */
-
-#ifdef HAVE_UUID_VARIANT
-PHP_FUNCTION(uuid_variant);
-ZEND_BEGIN_ARG_INFO_EX(uuid_variant_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
-#endif /* HAVE_UUID_VARIANT */
-
-PHP_FUNCTION(uuid_time);
-ZEND_BEGIN_ARG_INFO_EX(uuid_time_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
-
-PHP_FUNCTION(uuid_mac);
-ZEND_BEGIN_ARG_INFO_EX(uuid_mac_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
-
-PHP_FUNCTION(uuid_parse);
-ZEND_BEGIN_ARG_INFO_EX(uuid_parse_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
-
-PHP_FUNCTION(uuid_unparse);
-ZEND_BEGIN_ARG_INFO_EX(uuid_unparse_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-  ZEND_ARG_INFO(0, uuid)
-ZEND_END_ARG_INFO()
 
 #ifdef  __cplusplus
 } // extern "C" 
