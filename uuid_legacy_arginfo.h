@@ -67,8 +67,12 @@ ZEND_FUNCTION(uuid_type);
 #if defined(HAVE_UUID_VARIANT)
 ZEND_FUNCTION(uuid_variant);
 #endif
+#if defined(HAVE_UUID_TIME)
 ZEND_FUNCTION(uuid_time);
+#endif
+#if defined(HAVE_UUID_MAC)
 ZEND_FUNCTION(uuid_mac);
+#endif
 ZEND_FUNCTION(uuid_parse);
 ZEND_FUNCTION(uuid_unparse);
 
@@ -90,8 +94,12 @@ static const zend_function_entry ext_functions[] = {
 #if defined(HAVE_UUID_VARIANT)
 	ZEND_FE(uuid_variant, arginfo_uuid_variant)
 #endif
+#if defined(HAVE_UUID_TIME)
 	ZEND_FE(uuid_time, arginfo_uuid_time)
+#endif
+#if defined(HAVE_UUID_MAC)
 	ZEND_FE(uuid_mac, arginfo_uuid_mac)
+#endif
 	ZEND_FE(uuid_parse, arginfo_uuid_parse)
 	ZEND_FE(uuid_unparse, arginfo_uuid_unparse)
 	ZEND_FE_END

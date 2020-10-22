@@ -74,6 +74,14 @@ PHP_MINFO_FUNCTION(uuid);
 } // extern "C" 
 #endif
 
+#ifndef UUID_TYPE_DCE_TIME
+#ifdef __APPLE__
+/* UUID Type definitions */
+#define UUID_TYPE_DCE_TIME   1
+#define UUID_TYPE_DCE_RANDOM 4
+#endif /* __APPLE__ */
+#endif /* UUID_TYPE_DCE_TIME */
+
 /* mirrored PHP Constants */
 #define UUID_TYPE_DEFAULT 0
 #define UUID_TYPE_TIME UUID_TYPE_DCE_TIME

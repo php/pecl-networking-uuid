@@ -29,9 +29,13 @@ function uuid_type(string $uuid): int {}
 function uuid_variant(string $uuid): int {}
 #endif
 
+#ifdef HAVE_UUID_TIME
 function uuid_time(string $uuid): int {}
+#endif
 
+#ifdef HAVE_UUID_MAC
 function uuid_mac(string $uuid): string {}
+#endif
 
 function uuid_parse(string $uuid): string {}
 
