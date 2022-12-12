@@ -1,0 +1,62 @@
+name: Continuous Integration Tests
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: PHP ${{ matrix.version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ !matrix.stable }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        version: ['8.0', '8.1', '8.2']
+        stable: [true]
+        include:
+          - os: ubuntu-latest
+            version: '8.3'
+            stable: false
+          - os: macos-latest
+            version: '8.3'
+            stable: false
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.version }}
+          tool: phpize, php-config
+
+      - uses: actions/checkout@v3
+
+      - name: Install uuid
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: brew install util-linux
+
+      - name: Run phpize
+        run: phpize
+
+      - name: Configure macOS
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: ./configure --with-uuid=$(brew --prefix util-linux)
+
+      - name: Configure Linux
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: ./configure --with-uuid
+
+      - name: Make extension
+        run: make all
+
+      - name: Run tests
+        run: php -n run-tests.php -n -d extension_dir=modules -d extension=uuid --show-diff tests
+
+      - name: Install extension
+        run: sudo make install
+
+      - name: Install extension
+        run: sudo make install
+
+      - name: Check if installed correctly
+        run: php -dextension="uuid" -m | grep uuid
