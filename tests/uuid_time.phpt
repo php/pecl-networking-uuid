@@ -4,6 +4,7 @@ uuid_time() function
 <?php 
 
 if(!extension_loaded('uuid')) die('skip ');
+if(!function_exists('uuid_time')) die('skip not compiled in (HAVE_UUID_TIME)');
 
  ?>
 --FILE--

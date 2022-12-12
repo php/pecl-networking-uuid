@@ -317,6 +317,7 @@ PHP_FUNCTION(uuid_variant)
 
 #endif /* HAVE_UUID_VARIANT */
 
+#ifdef HAVE_UUID_TIME
 /* {{{ proto int uuid_time(string uuid)
   Extract creation time from a time based UUID as UNIX timestamp */
 PHP_FUNCTION(uuid_time)
@@ -346,7 +347,7 @@ PHP_FUNCTION(uuid_time)
 	RETURN_LONG(uuid_time(u, NULL));
 }
 /* }}} uuid_time */
-
+#endif /* HAVE_UUID_TIME */
 
 /* {{{ proto string uuid_mac(string uuid)
   Get UUID creator network MAC address */
@@ -379,7 +380,6 @@ PHP_FUNCTION(uuid_mac)
 	RETURN_STRING((char *)(uuid_str + 24));
 }
 /* }}} uuid_mac */
-
 
 /* {{{ proto string uuid_parse(string uuid)
    */
