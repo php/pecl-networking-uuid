@@ -39,10 +39,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>stable</api>
   </stability>
 
-  <license uri="http://www.gnu.org/licenses/licenses.html#LGPL" filesource="LICENSE">LGPL</license>
+  <license uri="https://www.gnu.org/licenses/lgpl-2.1.html" filesource="LICENSE">LGPL-2.1-or-later</license>
 
   <notes>
--
+- MacOS support (Sean Molenaar)
   </notes>
 
   <contents>
