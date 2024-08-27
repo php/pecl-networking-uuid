@@ -27,6 +27,12 @@
 
 #ifdef HAVE_UUID
 
+/* workround with define uuid_time uuid_time64 */
+#ifdef uuid_time
+#undef uuid_time
+#define HAVE_TIME64
+#endif
+
 #if PHP_VERSION_ID < 80000
 #define VALUE_ERROR(n,name,msg) php_error_docref(NULL, E_WARNING, "Argument #%d (%s) %s", n, name, msg); RETURN_FALSE
 #define RETURN_THROWS() return
@@ -344,7 +350,11 @@ PHP_FUNCTION(uuid_time)
 		VALUE_ERROR(1, "$uuid", "UUID DCE TIME expected");
 	}
 
+#ifdef HAVE_TIME64
+	RETURN_LONG(uuid_time64(u, NULL));
+#else
 	RETURN_LONG(uuid_time(u, NULL));
+#endif
 }
 /* }}} uuid_time */
 #endif /* HAVE_UUID_TIME */
