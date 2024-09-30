@@ -27,9 +27,9 @@
 
 #ifdef HAVE_UUID
 
+#if !defined(HAVE_UUID_TIME64) && defined(uuid_time)
 /* workround with define uuid_time uuid_time64 */
 /* Also see https://bugzilla.redhat.com/2315645 */
-#ifdef uuid_time
 #undef uuid_time
 extern time_t uuid_time(const uuid_t uu, struct timeval *ret_tv);
 #endif

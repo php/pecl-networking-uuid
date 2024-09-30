@@ -19,6 +19,7 @@ if test "$PHP_UUID" != "no"; then
   PHP_CHECK_FUNC_LIB(uuid_generate_md5, uuid)
   PHP_CHECK_FUNC_LIB(uuid_generate_sha1, uuid)
   PHP_CHECK_FUNC_LIB(uuid_time, uuid)
+  PHP_CHECK_FUNC_LIB(uuid_time64, uuid)
 
   export OLD_CPPFLAGS="$CPPFLAGS"
   export CPPFLAGS="$CPPFLAGS $INCLUDES -DHAVE_UUID"
