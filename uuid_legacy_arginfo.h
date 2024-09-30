@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: d6443ac36cb354cca5638d7f002c18a6c7ae02b0 */
+ * Stub hash: f9608bd9b52b78c63d11ae9e93fca592c459b8df */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_uuid_create, 0, 0, 0)
 	ZEND_ARG_INFO(0, uuid_type)
@@ -42,7 +42,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_uuid_variant, 0, 0, 1)
 ZEND_END_ARG_INFO()
 #endif
 
-#if defined(HAVE_UUID_TIME)
+#if defined(HAVE_UUID_TIME) || defined(HAVE_UUID_TIME64)
 ZEND_BEGIN_ARG_INFO_EX(arginfo_uuid_time, 0, 0, 1)
 	ZEND_ARG_INFO(0, uuid)
 ZEND_END_ARG_INFO()
@@ -53,7 +53,6 @@ ZEND_END_ARG_INFO()
 #define arginfo_uuid_parse arginfo_uuid_is_valid
 
 #define arginfo_uuid_unparse arginfo_uuid_is_valid
-
 
 ZEND_FUNCTION(uuid_create);
 ZEND_FUNCTION(uuid_is_valid);
@@ -71,13 +70,12 @@ ZEND_FUNCTION(uuid_type);
 #if defined(HAVE_UUID_VARIANT)
 ZEND_FUNCTION(uuid_variant);
 #endif
-#if defined(HAVE_UUID_TIME)
+#if defined(HAVE_UUID_TIME) || defined(HAVE_UUID_TIME64)
 ZEND_FUNCTION(uuid_time);
 #endif
 ZEND_FUNCTION(uuid_mac);
 ZEND_FUNCTION(uuid_parse);
 ZEND_FUNCTION(uuid_unparse);
-
 
 static const zend_function_entry ext_functions[] = {
 	ZEND_FE(uuid_create, arginfo_uuid_create)
@@ -96,7 +94,7 @@ static const zend_function_entry ext_functions[] = {
 #if defined(HAVE_UUID_VARIANT)
 	ZEND_FE(uuid_variant, arginfo_uuid_variant)
 #endif
-#if defined(HAVE_UUID_TIME)
+#if defined(HAVE_UUID_TIME) || defined(HAVE_UUID_TIME64)
 	ZEND_FE(uuid_time, arginfo_uuid_time)
 #endif
 	ZEND_FE(uuid_mac, arginfo_uuid_mac)

@@ -131,7 +131,7 @@ function uuid_type(string $uuid): int {}
 function uuid_variant(string $uuid): int {}
 #endif
 
-#ifdef HAVE_UUID_TIME
+#if defined(HAVE_UUID_TIME) || defined(HAVE_UUID_TIME64)
 function uuid_time(string $uuid): int {}
 #endif
 

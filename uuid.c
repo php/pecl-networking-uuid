@@ -27,11 +27,13 @@
 
 #ifdef HAVE_UUID
 
-#if !defined(HAVE_UUID_TIME64) && defined(uuid_time)
+#if defined(uuid_time)
 /* workround with define uuid_time uuid_time64 */
 /* Also see https://bugzilla.redhat.com/2315645 */
 #undef uuid_time
+#if !defined(HAVE_UUID_TIME64)
 extern time_t uuid_time(const uuid_t uu, struct timeval *ret_tv);
+#endif
 #endif
 
 #if PHP_VERSION_ID < 80000
@@ -324,7 +326,7 @@ PHP_FUNCTION(uuid_variant)
 
 #endif /* HAVE_UUID_VARIANT */
 
-#ifdef HAVE_UUID_TIME
+#if defined(HAVE_UUID_TIME) || defined(HAVE_UUID_TIME64)
 /* {{{ proto int uuid_time(string uuid)
   Extract creation time from a time based UUID as UNIX timestamp */
 PHP_FUNCTION(uuid_time)
@@ -351,7 +353,11 @@ PHP_FUNCTION(uuid_time)
 		VALUE_ERROR(1, "$uuid", "UUID DCE TIME expected");
 	}
 
+#if defined(HAVE_UUID_TIME64)
+	RETURN_LONG(uuid_time64(u, NULL));
+#else
 	RETURN_LONG(uuid_time(u, NULL));
+#endif
 }
 /* }}} uuid_time */
 #endif /* HAVE_UUID_TIME */
