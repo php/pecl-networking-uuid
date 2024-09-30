@@ -28,9 +28,10 @@
 #ifdef HAVE_UUID
 
 /* workround with define uuid_time uuid_time64 */
+/* Also see https://bugzilla.redhat.com/2315645 */
 #ifdef uuid_time
 #undef uuid_time
-#define HAVE_TIME64
+extern time_t uuid_time(const uuid_t uu, struct timeval *ret_tv);
 #endif
 
 #if PHP_VERSION_ID < 80000
@@ -350,11 +351,7 @@ PHP_FUNCTION(uuid_time)
 		VALUE_ERROR(1, "$uuid", "UUID DCE TIME expected");
 	}
 
-#ifdef HAVE_TIME64
-	RETURN_LONG(uuid_time64(u, NULL));
-#else
 	RETURN_LONG(uuid_time(u, NULL));
-#endif
 }
 /* }}} uuid_time */
 #endif /* HAVE_UUID_TIME */
