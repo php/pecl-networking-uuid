@@ -29,6 +29,7 @@ modules/
 uuid-*.tgz
 *.lo
 *.o
+*.dep
 run-tests.php
 tmp-php.ini
 tests/*.diff
@@ -39,3 +40,4 @@ tests/*.php
 tests/*.sh
 lcov_data
 *~
+sendpackagist
