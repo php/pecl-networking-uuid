@@ -1,0 +1,13 @@
+{
+    "name": "pecl/uuid",
+    "type": "php-ext",
+    "license": "PHP-3.01",
+    "description": "UUID extension",
+    "require": {
+        "php": ">= 7.0.0"
+    },
+    "php-ext": {
+        "extension-name": "uuid",
+        "configure-options": []
+    }
+}
