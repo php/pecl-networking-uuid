@@ -1,7 +1,7 @@
 {
     "name": "pecl/uuid",
     "type": "php-ext",
-    "license": "PHP-3.01",
+    "license": "LGPL-2.1-or-later",
     "description": "UUID extension",
     "require": {
         "php": ">= 7.0.0"
