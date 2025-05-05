@@ -58,6 +58,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file role='src' name='php_uuid.h'/>
       <dir name="tests">
         <file role='test' name='uuid_create.phpt'/>
+        <file role='test' name='uuid_create_time_v6.phpt'/>
+        <file role='test' name='uuid_create_time_v7.phpt'/>
         <file role='test' name='uuid_is_valid.phpt'/>
         <file role='test' name='uuid_compare.phpt'/>
         <file role='test' name='uuid_is_null.phpt'/>
