@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f9608bd9b52b78c63d11ae9e93fca592c459b8df */
+ * Stub hash: 6ccfec26334d92d0a6473ca44a107d211bf58c7e */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_uuid_create, 0, 0, 0)
 	ZEND_ARG_INFO(0, uuid_type)
@@ -54,6 +54,7 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_uuid_unparse arginfo_uuid_is_valid
 
+
 ZEND_FUNCTION(uuid_create);
 ZEND_FUNCTION(uuid_is_valid);
 ZEND_FUNCTION(uuid_compare);
@@ -76,6 +77,7 @@ ZEND_FUNCTION(uuid_time);
 ZEND_FUNCTION(uuid_mac);
 ZEND_FUNCTION(uuid_parse);
 ZEND_FUNCTION(uuid_unparse);
+
 
 static const zend_function_entry ext_functions[] = {
 	ZEND_FE(uuid_create, arginfo_uuid_create)
@@ -121,6 +123,12 @@ static void register_uuid_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("UUID_TYPE_DCE", UUID_TYPE_DCE, CONST_PERSISTENT | CONST_CS);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_NAME", UUID_TYPE_NAME, CONST_PERSISTENT | CONST_CS);
 	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME", UUID_TYPE_TIME, CONST_PERSISTENT | CONST_CS);
+#if defined(UUID_TYPE_DCE_TIME_V6)
+	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME_V6", UUID_TYPE_DCE_TIME_V6, CONST_PERSISTENT | CONST_CS);
+#endif
+#if defined(UUID_TYPE_DCE_TIME_V7)
+	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME_V7", UUID_TYPE_DCE_TIME_V7, CONST_PERSISTENT | CONST_CS);
+#endif
 #if defined(UUID_TYPE_DCE_SECURITY)
 	REGISTER_LONG_CONSTANT("UUID_TYPE_SECURITY", UUID_TYPE_DCE_SECURITY, CONST_PERSISTENT | CONST_CS);
 #endif

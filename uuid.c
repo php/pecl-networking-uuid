@@ -114,6 +114,16 @@ PHP_FUNCTION(uuid_create)
 	  case UUID_TYPE_DCE_TIME:
 		uuid_generate_time(uuid);
 		break;
+#ifdef UUID_TYPE_DCE_TIME_V6
+	  case UUID_TYPE_DCE_TIME_V6:
+		uuid_generate_time_v6(uuid);
+		break;
+#endif
+#ifdef UUID_TYPE_DCE_TIME_V7
+	  case UUID_TYPE_DCE_TIME_V7:
+		uuid_generate_time_v7(uuid);
+		break;
+#endif
 	  case UUID_TYPE_DCE_RANDOM:
 		uuid_generate_random(uuid);
 		break;

@@ -65,6 +65,22 @@ const UUID_TYPE_NAME = UNKNOWN;
  */
 const UUID_TYPE_TIME = UNKNOWN;
 
+#ifdef UUID_TYPE_DCE_TIME_V6
+/**
+ * @var int
+ * @cvalue UUID_TYPE_DCE_TIME_V6
+ */
+const UUID_TYPE_TIME_V6 = UNKNOWN;
+#endif
+
+#ifdef UUID_TYPE_DCE_TIME_V7
+/**
+ * @var int
+ * @cvalue UUID_TYPE_DCE_TIME_V7
+ */
+const UUID_TYPE_TIME_V7 = UNKNOWN;
+#endif
+
 #ifdef UUID_TYPE_DCE_SECURITY
 /**
  * @var int
