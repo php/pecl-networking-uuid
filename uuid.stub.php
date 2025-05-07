@@ -48,12 +48,14 @@ const UUID_TYPE_DEFAULT = 0;
 /**
  * @var int
  * @cvalue UUID_TYPE_DCE
+ * @deprecated
  */
 const UUID_TYPE_DCE = UNKNOWN;
 
 /**
  * @var int
  * @cvalue UUID_TYPE_NAME
+ * @deprecated
  */
 const UUID_TYPE_NAME = UNKNOWN;
 
@@ -79,6 +81,14 @@ const UUID_TYPE_TIME_V6 = UNKNOWN;
  * @cvalue UUID_TYPE_DCE_TIME_V7
  */
 const UUID_TYPE_TIME_V7 = UNKNOWN;
+#endif
+
+#ifdef UUID_TYPE_DCE_VENDOR
+/**
+ * @var int
+ * @cvalue UUID_TYPE_DCE_VENDOR
+ */
+const UUID_TYPE_VENDOR = UNKNOWN;
 #endif
 
 #ifdef UUID_TYPE_DCE_SECURITY

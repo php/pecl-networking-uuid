@@ -44,6 +44,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <notes>
 - Add support for RFC9562 UUIDs (UUID_TYPE_TIME_V6 and UUID_TYPE_TIME_V7)
   when available, in libuuid from util-linux version 2.41
+- constant UUID_TYPE_DCE is deprecated, use UUID_TYPE_RANDOM instead
+- constant UUID_TYPE_NAME is deprecated, use UUID_TYPE_TIME instead
+- new constant UUID_TYPE_VENDOR, only for uuid_type
   </notes>
 
   <contents>

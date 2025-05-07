@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6ccfec26334d92d0a6473ca44a107d211bf58c7e */
+ * Stub hash: 28e3d8edf46fe2f5d0e87e159d36b508f16efccf */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_uuid_create, 0, 0, 0)
 	ZEND_ARG_INFO(0, uuid_type)
@@ -128,6 +128,9 @@ static void register_uuid_symbols(int module_number)
 #endif
 #if defined(UUID_TYPE_DCE_TIME_V7)
 	REGISTER_LONG_CONSTANT("UUID_TYPE_TIME_V7", UUID_TYPE_DCE_TIME_V7, CONST_PERSISTENT | CONST_CS);
+#endif
+#if defined(UUID_TYPE_DCE_VENDOR)
+	REGISTER_LONG_CONSTANT("UUID_TYPE_VENDOR", UUID_TYPE_DCE_VENDOR, CONST_PERSISTENT | CONST_CS);
 #endif
 #if defined(UUID_TYPE_DCE_SECURITY)
 	REGISTER_LONG_CONSTANT("UUID_TYPE_SECURITY", UUID_TYPE_DCE_SECURITY, CONST_PERSISTENT | CONST_CS);
