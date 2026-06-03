@@ -13,7 +13,7 @@
                 "name": "with-uuid",
                 "description": "libuuid installation prefix",
                 "needs-value": true
-            },
+            }
         ]
     }
 }
