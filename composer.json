@@ -8,6 +8,12 @@
     },
     "php-ext": {
         "extension-name": "uuid",
-        "configure-options": []
+        "configure-options": [
+            {
+                "name": "with-uuid",
+                "description": "libuuid installation prefix",
+                "needs-value": true
+            },
+        ]
     }
 }
